@@ -1,4 +1,4 @@
-function [ ] = repls2( basepath, nrep,ngen,sizex,sizey,def_mutdc,def_mutcd,evo_mutdc,evo_mutcd,mut_mutcoop,mut_neutral,basefitness,cost,benefit,mexp,record )
+function [ ] = repls2( basepath, nrep,ngen,sizex,sizey,def_mutdc,def_mutcd,evo_mutdc,evo_mutcd,mut_mutcoop,mut_neutral,basefitness,cost,benefit,mexp,liquid,record )
 %REPLS2 Perform a set of experiments: call the model for several replicates
 %and output graphes
 
@@ -17,7 +17,7 @@ neutral_nb = zeros(nrep,ngen);
 
 for a=1:nrep
   recordpath=sprintf('%s/%d',basepath,baseseed+a);
-  [secretion_nb(a,:),mutators_dc_nb(a,:),mutators_cd_nb(a,:),neutral_nb(a,:)]=s2(baseseed+a,ngen,sizex,sizey,def_mutdc,def_mutcd,evo_mutdc,evo_mutcd,mut_mutcoop,mut_neutral,basefitness,cost,benefit,mexp,recordpath,record,false);
+  [secretion_nb(a,:),mutators_dc_nb(a,:),mutators_cd_nb(a,:),neutral_nb(a,:)]=s2(baseseed+a,ngen,sizex,sizey,def_mutdc,def_mutcd,evo_mutdc,evo_mutcd,mut_mutcoop,mut_neutral,basefitness,cost,benefit,mexp,liquid,recordpath,record,false);
 end
 
 m_secretion=mean(secretion_nb,1);
@@ -39,7 +39,7 @@ save([psave '.mat'],'secretion_nb','mutators_dc_nb','mutators_cd_nb','neutral_nb
                     'm_secretion','m_mutators_dc','m_mutators_cd','m_neutral',...
                     'se_secretion','se_mutators_dc','se_mutators_cd','se_neutral',...
                     'ngen','sizex','sizey','def_mutdc','def_mutcd','evo_mutdc','evo_mutcd','mut_mutcoop','mut_neutral',...
-                    'basefitness','cost','benefit');
+                    'basefitness','cost','benefit','mexp','liquid');
 
 [h]=plotErrorBar([m_secretion;m_mutators_dc;m_mutators_cd;m_neutral],[se_secretion;se_mutators_dc;se_mutators_cd;se_neutral]);
 ylim([0 sizex*sizey]);
