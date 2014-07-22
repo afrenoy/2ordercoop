@@ -1,4 +1,4 @@
-function [secretion_nb,mutators_dc_nb,mutators_cd_nb,neutral_nb] = s2(seed,ngen,sizex,sizey,mutdc0,mutcd0,mutdc1,mutcd1,mut_mutcoop,mut_neutral,basefitness,cost,benefit,mexp,recordpath,record,graphics)
+function [secretion_nb,mutators_dc_nb,mutators_cd_nb,neutral_nb] = s2(seed,ngen,sizex,sizey,mutdc0,mutcd0,mutdc1,mutcd1,mut_mutcoop,mut_neutral,basefitness,cost,benefit,mexp,liquid,recordpath,record,graphics)
 %S2 A simple spatially structured model of cooperation without public good: evolvable, different mutation rates (d->c and c->d)
 %Selection is fitness-proportionate and therefore does not depend on rank
 
@@ -10,42 +10,8 @@ else
 end
 
 %% Intitialize parameters
-
-if ~exist('ngen','var')
-  ngen = 1000;
-end
-if ~exist('sizex','var')
-  sizex=32;
-end
-if ~exist('sizey','var')
-  sizey=32;
-end
-if ~exist('mutdc0','var')
-  mutdc0 = 0.001;
-end
-if ~exist('mutcd0','var')
-  mutcd0 = 0.001;
-end
-if ~exist('mutdc1','var')
-  mutdc1 = 0.01;
-end
-if ~exist('mutcd1','var')
-  mutcd1 = 0.01;
-end
-if ~exist('mut_mutcoop','var')
-  mut_mutcoop = 0.001;
-end
-if ~exist('mut_neutral','var')
-  mut_neutral = 0.001;
-end
-if ~exist('basefitness','var')
-  basefitness = 1;
-end
-if ~exist('cost','var')
-  cost = 0.5;
-end
-if ~exist('benefit','var')
-  benefit = 1;
+if ~exist('liquid','var')
+  liquid=false;
 end
 
 %% Graphic properties
@@ -165,8 +131,14 @@ for g=1:ngen
       %% Compute the number of neighbours that secrete
       for tx=-1:1
         nx=mod((x+tx-1),sizex)+1;
+        if liquid % If option liquid is activated we randomly pick the neighboors
+            nx=randi(sizex);
+        end
         for ty=-1:1
           ny=mod((y+ty-1),sizey)+1;
+          if liquid
+              ny=randi(sizey);
+          end
           nnsec(x,y)=nnsec(x,y)+secretion(nx,ny);
         end
       end
