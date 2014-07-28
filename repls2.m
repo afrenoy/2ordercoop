@@ -6,6 +6,7 @@ if ~exist(basepath,'dir')
   mkdir(basepath);
 end
 
+rng('shuffle')
 baseseed = floor(rand()*100000);
 
 psave=sprintf('%s/%d-%d',basepath,baseseed+1,baseseed+nrep);
