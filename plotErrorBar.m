@@ -31,7 +31,7 @@ for i=1:nblines
 end
 
 for i=1:nblines
-  hM(i)=plot(MeanValues(i,:),'Color',frontcolor(i,:),'LineWidth',1);
+  hM(i)=plot(MeanValues(i,:),'Color',frontcolor(i,:),'LineWidth',2);
 end
 
 if ~holdStatus, hold off, end
