@@ -1,5 +1,5 @@
 function [m1,m2] = regression( matfile )
-%REPLS2 Computes an analog of relatedness
+%REGRESSION Computes an analog of relatedness
 
 sim=load(matfile);
 [pathstr,name,ext] = fileparts(matfile);
@@ -21,9 +21,6 @@ for rep=first:last
     
     nagen=sim.ngen-1000+1;
     for i=1000:sim.ngen % we avoid the first 1000 generations (before 'equilibrium')
-        if mod(i,100)==0
-            fprintf('*');
-        end
 
         %% Read
         secretion=fread(f,[sim.sizex,sim.sizey]);
