@@ -1,4 +1,4 @@
-function [  ] = plotexp( maindir,ctldir,cthdir )
+function [  ] = plotexp( maindir,ctldir,cthdir,desc )
 %PLOTEXP Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -86,7 +86,7 @@ set(ax1,'Xtick',[]);
 set(ax2,'Xtick',[]);
 ylabel(ax1,'Pure cooperators (blue)','FontSize',12);
 ylabel(ax2,'2nd order (green/red)','FontSize',12);
-
+title(desc);
 hold off;
 end
 

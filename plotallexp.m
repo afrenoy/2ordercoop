@@ -10,10 +10,6 @@ for m=listem
         d2=['~/data/evomut/exp1_ctl/c' num2str(c) 'mexp' num2str(m)];
         d3=['~/data/evomut/exp1_cth/c' num2str(c) 'mexp' num2str(m)];
         subplot(numel(listem),numel(listec),n);
-        plotexp(d1,d2,d3);  
+        plotexp(d1,d2,d3,desc);  
     end
 end
-
-%%
-subplot(3,3,1);
-plotexp( '~/data/evomut/exp1/c0.3mexp1','~/data/evomut/exp1_ctl/c0.3mexp1','~/data/evomut/exp1_cth/c0.3mexp1' )
