@@ -4,9 +4,13 @@ function [ ] = ouputexp( mainfile, ctlfile, cthfile )
 
 a=load(mainfile);
 
-if exist('b','var')
-b=load(ctlfile);
-c=load(cthfile);
+if exist('ctlfile','var')
+    b=load(ctlfile);
+    if ~exist('cthfile','var')
+        disp('if you specify ctlfile, you must also specify cthfile (and vice versa)');
+    end
+    c=load(cthfile);
+end
 
 %% Plot populations average values with errors bars
 [h]=plotErrorBar([a.m_secretion;a.m_mutators_dc;a.m_mutators_cd],[a.se_secretion;a.se_mutators_dc;a.se_mutators_cd],[0 0 1; 0 1 0; 1 0 0; 1 1  0; 0 1 1; 1 0 1],[0.7 0.7 1; 0.7 1 0.7; 1 0.7 0.7; 1 1 0.7; 0.7 1 1; 1 0.7 1]);
