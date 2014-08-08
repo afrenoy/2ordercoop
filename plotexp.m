@@ -1,4 +1,4 @@
-function [  ] = plotexp( maindir,ctldir,cthdir,desc )
+function [ax1,ax2,h1,h2,h3,h4,h5] = plotexp( maindir,ctldir,cthdir,desc )
 %PLOTEXP Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -35,7 +35,11 @@ set(h3,'BaseValue',0);
 set(h3,'Parent',ax2);
 
 %% Pure cooperators error bar
-he1=errorbar(ax1,1,nbcoop/n,stdcoop/n,'color',[0.3 0.6 1],'LineWidth',5);
+if (nbcoop/n - stdcoop/n < st)
+    he1=errorbar(ax1,1,nbcoop/n,nbcoop/n-st,stdcoop/n,'color',[0.3 0.6 1],'LineWidth',5);
+else
+    he1=errorbar(ax1,1,nbcoop/n,stdcoop/n,'color',[0.3 0.6 1],'LineWidth',5);
+end
 hee1=get(he1,'Children');
 xx=get(hee1(2),'Xdata');
 xx(4)=0.8;
@@ -43,6 +47,7 @@ xx(5)=1.2;
 xx(7)=0.8;
 xx(8)=1.2;
 set(hee1(2),'Xdata',xx);
+%uistack(he1,'top');
 
 %% Second order (mutdc) error bar
 he2=errorbar(ax1,2,nb2coop/n,std2coop/n,'color',[0.5 1 0.5],'LineWidth',5);
@@ -67,8 +72,8 @@ xx(8)=3.2;
 set(hee3(2),'Xdata',xx);
 
 %% Pure cooperators control lines
-line([0.6 1.4],[nbctl/n nbctl/n],'LineStyle','--','LineWidth',5,'color',[0.5 0.5 0.5],'Parent',ax1);
-line([0.6 1.4],[nbcth/n nbcth/n],'LineStyle',':','LineWidth',5,'color','black','Parent',ax1);
+h4=line([0.6 1.4],[nbctl/n nbctl/n],'LineStyle',':','LineWidth',4,'color',[0.5 0.5 0.5],'Parent',ax1);
+h5=line([0.6 1.4],[nbcth/n nbcth/n],'LineStyle',':','LineWidth',4,'color','black','Parent',ax1);
 
 %% Global
 set(ax1,'Yscale','log');
@@ -84,9 +89,13 @@ xlim(ax2,[0.5 3.5]);
 %set(ax2,'XtickLabel',{'2nd order cooperators'});
 set(ax1,'Xtick',[]);
 set(ax2,'Xtick',[]);
-ylabel(ax1,'Pure cooperators (blue)','FontSize',12);
-ylabel(ax2,'2nd order (green/red)','FontSize',12);
-title(desc);
+set(ax1,'Ytick',[0.001,0.01,0.1,1]);
+set(ax2,'Ytick',[0 0.2 0.4 0.6 0.8 1]);
+%ylabel(ax1,'Pure cooperators (blue)','FontSize',12);
+%ylabel(ax2,'2nd order (green/red)','FontSize',12);
+if ~strcmp(desc,'')
+    title(desc);
+end
 hold off;
 end
 
