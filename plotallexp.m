@@ -2,7 +2,7 @@
 
 n=0;
 listem=[1 2 5 10 20 50 100 200];
-listec=[0.3 0.4 0.5 0.6 0.7 0.8];
+listec=[0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9];
 
 hblank=0.03; % What horizontal space to leave between two subplots
 vblank=0.015; % What vertical space to leave between two subplots
@@ -34,7 +34,7 @@ for m=listem
 end
 
 % Legend
-hl=legend([h1 h4 h5 h2 h3],{'Pure cooperators (left axis)','enforcing low switching','enforcing high switching','High d->c (right axis)','High c->d (right axis)'},'FontSize',20);
+hl=legend([h1 h4 h5 h2 h3],{'Pure coop. (left axis)','enforcing low switching','enforcing high switching','High d->c (right axis)','High c->d (right axis)'},'FontSize',20);
 
 %
 leftax=subplot('Position',[0 savev saveh 1],'color','none','Xtick',[],'Ytick',[],'Box','off','visible','off');
@@ -58,7 +58,7 @@ end
 set(gcf,'units','normalized','outerposition',[0 0 0.8 1]);
 set(gcf, 'PaperPositionMode', 'auto');
 pl=get(hl,'Position');
-pl(1)=0.84;
+pl(1)=0.87;
 set(hl,'Position',pl)
 
 %% Export and fix
