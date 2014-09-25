@@ -71,7 +71,8 @@ for m=listem
         set(gca,'Xtick',[]);
         xlim([0 3]);
         
-        [h,p]=ttest2(mm1,mm2,'tail','right');
+        %[h,p]=ttest2(mm1,mm2,'tail','right');
+        [h,p]=ttest(mm1,mm2,'tail','right');
         if p<0.0001
             text(0.45,0.9,'***','Unit','normalized','FontSize',25);
         elseif p<0.001
