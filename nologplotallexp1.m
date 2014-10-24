@@ -10,6 +10,8 @@ vblank=0.015; % What vertical space to leave between two subplots
 saveh=0.07; % What horizontal space to leave at the left of the figure for 'global' labels
 savev=0.1; % What vertical space to leave at the bottom of the figure for 'global' labels
 
+hright=0.01;
+
 nm=0;
 for m=listem
     nc=0;
@@ -21,19 +23,49 @@ for m=listem
         d1=['~/data/evomut/exp1/c' num2str(c) 'mexp' num2str(m)];
         d2=['~/data/evomut/exp1_ctl/c' num2str(c) 'mexp' num2str(m)];
         d3=['~/data/evomut/exp1_cth/c' num2str(c) 'mexp' num2str(m)];
-        left=saveh+(nc*(1-saveh)-1)/numel(listec)+hblank/2;
+        left=saveh+(nc*(1-saveh-hright)-1)/numel(listec)+hblank/2;
         bottom=savev+(nm*(1-savev)-1)/numel(listem)+vblank/2;
-        width=(1-saveh)/numel(listec)-hblank;
+        width=(1-saveh-hright)/numel(listec)-hblank;
         height=(1-savev)/numel(listem)-vblank;
         subplot('Position',[left bottom width height]);
-        [ax1,h1,h2,h3,h4,h5]=nologplotexp(d1,d2,d3,'');
+        [ax1,h1,h2,h3]=nologplotexp(d1,d2,d3,'');
         if c==min(listec)
+            %set(get(h1,'BaseLine'),'Visible','off');
+            %set(get(h2,'BaseLine'),'Visible','off');
+            %set(get(h3,'BaseLine'),'Visible','off');
             set(ax1,'YAxisLocation','left');
+            set(ax1,'color','none');
+            set(ax1,'TickLength',[0.03 0.03]);
+            set(ax1,'LineWidth',1);
+            set(ax1,'Box','off');
+        elseif c==max(listec)
+            %set(get(h1,'BaseLine'),'Visible','off');
+            %set(get(h2,'BaseLine'),'Visible','off');
+            %set(get(h3,'BaseLine'),'Visible','off');
+            set(ax1,'YAxisLocation','right');
+            set(ax1,'color','none');
+            set(ax1,'TickLength',[0.03 0.03]);
+            set(ax1,'LineWidth',1);
+            set(ax1,'Box','off');
         else
             set(ax1,'YColor','w');
+            set(ax1,'color','none');
             set(ax1,'YTick',[]);
+            set(ax1,'Box','off');
+            set(ax1,'LineWidth',1);
             set(ax1,'Visible','off');
+            %set(get(h1,'BaseLine'),'Visible','off');
+            %set(get(h2,'BaseLine'),'Visible','off');
+            %set(get(h3,'BaseLine'),'Visible','off');
+            %line([0.4 3.6],[0 0],'LineWidth',1,'color',[0 0 0]);
         end
+        %set(get(h1,'BaseLine'),'LineWidth',1);
+        %set(get(h2,'BaseLine'),'LineWidth',1);
+        %set(get(h3,'BaseLine'),'LineWidth',1);
+        %set(get(h1,'BaseLine'),'Visible','off');
+        %set(get(h2,'BaseLine'),'Visible','off');
+        %set(get(h3,'BaseLine'),'Visible','off');
+        set(ax1,'Box','off');
         set(ax1,'FontSize',18);
     end
 end
@@ -52,19 +84,19 @@ end
 nc=0;
 for c=listec
     nc=nc+1;
-    t=text((nc*(1-saveh)-1)/numel(listec)+hblank/2+((1-saveh)/numel(listec)-hblank)/2-0.01,0.8,['c = ' num2str(c)],'FontSize',18,'FontWeight','bold');
+    t=text((nc*(1-saveh)-1)/numel(listec)+hblank/2+((1-saveh)/numel(listec)-hblank)/2-0.01,0.75,['c = ' num2str(c)],'FontSize',18,'FontWeight','bold');
     set(t,'Parent',bottomax);
 end
 
 %% Print parameter names
-new=axes('Position',[0.015 0.025 1 1]);
+new=axes('Position',[0.015 0.025 1-hright 1]);
 set(new, 'color', 'none');
 set(new, 'XTick',[]);
 set(new, 'YTick',[]);
 set(new, 'Xlim',[0 1]);
 set(new, 'Ylim',[0 1]);
 set(new,'Visible','off');
-text(0.45,0.03,'Cooperation cost (c)','FontSize',22);
+text(0.45,0.025,'Cooperation cost (c)','FontSize',22);
 text(-0.005,0.45,'Selection pressure (m)','FontSize',22,'rotation',90);
 
 %% Make figure bigger for export
@@ -72,7 +104,7 @@ set(gcf,'units','normalized','outerposition',[0 0 0.6 1]);
 set(gcf, 'PaperPositionMode', 'auto');
 
 %% Add a global legend on bottom
-hl=legend([h1 h2 h3],{'Cooperation loci: proportion of allele C','D\rightarrow C rate loci: proportion of allele H','C\rightarrow D rate loci: proportion of allele H'},'FontSize',20,'Orientation','horizontal','Box','off');
+hl=legend([h1 h2 h3],{'Cooperation locus: proportion of allele C','D\rightarrow C rate locus: proportion of allele H','C\rightarrow D rate locus: proportion of allele H'},'FontSize',20,'Orientation','horizontal','Box','off');
 pl=get(hl,'Position');
 pl(1)=0.05;
 pl(2)=0.0;
@@ -80,13 +112,14 @@ pl(3)=1;
 set(hl,'Position',pl)
 
 %% Draw parameter zones
-ini=0.005;
-pa=line(0.013+saveh/2+[ini 0.125 0.125 0.25 0.25 0.375 0.375 0.25 0.25 ini ini]*(1-saveh), 0.013+savev/2+[0.25 0.25 0.375 0.375 0.5 0.5 0.75 0.75 1 1 0.25]*(1-savev),'color',[0 0 1],'LineStyle',':');
-pb=line(0.013+saveh/2+[ini 0.125 0.125 0.25 0.25 0.75 0.75 1 1 0.25 0.25 0.375 0.375 0.25 0.25 0.125 0.125 ini ini]*(1-saveh), 0.013+savev/2+[0.125 0.125 0.25 0.25 0.375 0.375 0.5 0.5 1 1 0.75 0.75 0.5 0.5 0.375 0.375 0.25 0.25 0.125]*(1-savev),'color',[0 1 0],'LineStyle',':');
-pc=line(0.013+saveh/2+[ini 1 1 0.75 0.75 0.25 0.25 0.125 0.125 ini ini]*(1-saveh), 0.013+savev/2+[0 0 0.5 0.5 0.375 0.375 0.25 0.25 0.125 0.125 0]*(1-savev),'color',[1 0 0],'LineStyle',':');
+ini=-0.017;
+fin=1.011;
+pa=line(0.013+saveh/2+[ini 0.125 0.125 0.25 0.25 0.375 0.375 0.25 0.25 ini ini]*(1-saveh), 0.011+savev/2+[0.25 0.25 0.375 0.375 0.5 0.5 0.75 0.75 1 1 0.25]*(1-savev),'color',[0 0 1],'LineStyle',':');
+pb=line(0.013+saveh/2+[ini 0.125 0.125 0.25 0.25 0.75 0.75 fin fin 0.25 0.25 0.375 0.375 0.25 0.25 0.125 0.125 ini ini]*(1-saveh), 0.011+savev/2+[0.125 0.125 0.25 0.25 0.375 0.375 0.5 0.5 1 1 0.75 0.75 0.5 0.5 0.375 0.375 0.25 0.25 0.125]*(1-savev),'color',[0 1 0],'LineStyle',':');
+pc=line(0.013+saveh/2+[ini fin fin 0.75 0.75 0.25 0.25 0.125 0.125 ini ini]*(1-saveh), 0.011+savev/2+[0 0 0.5 0.5 0.375 0.375 0.25 0.25 0.125 0.125 0]*(1-savev),'color',[1 0 0],'LineStyle',':');
 
 
 %% Export and fix
 print('-depsc','inter');
-system('cat inter.eps |sed -E "s/^\/DO.*/\/DO \{ [5 dpi2point mul 5 dpi2point mul] 0 setdash } bdef/g" >toto.eps');
+system('cat inter.eps |sed -E "s/^\/DO.*/\/DO \{ [5 dpi2point mul 5 dpi2point mul] 0 setdash } bdef/g" >1fig1.eps');
 system('rm inter.eps');
