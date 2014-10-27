@@ -69,7 +69,10 @@ for m=listem
         set(gca,'Xtick',[]);
         xlim([0 3]);
         set(gca,'FontSize',18);
-        
+        set(gca,'color','none');
+        set(gca,'TickLength',[0.03 0.03]);
+        set(gca,'YMinorTick','off');
+
         [h,p]=ttest(mm1,mm2,'tail','right');
         if p<0.0001
             text(0.45,0.9,'***','Unit','normalized','FontSize',25);
@@ -129,9 +132,9 @@ set(hl,'Position',pl)
 ini=-0.001;
 %fin=1.02;
 fin=1;
-pa=line(0.00+saveh/2+[ini 0.125 0.125 0.25 0.25 0.375 0.375 0.25 0.25 ini ini]*(1-saveh), 0.011+savev/2+[0.25 0.25 0.375 0.375 0.5 0.5 0.75 0.75 1 1 0.25]*(1-savev),'color',[0 0 1],'LineStyle',':');
-pb=line(0.00+saveh/2+[ini 0.125 0.125 0.25 0.25 0.75 0.75 fin fin 0.25 0.25 0.375 0.375 0.25 0.25 0.125 0.125 ini ini]*(1-saveh), 0.011+savev/2+[0.125 0.125 0.25 0.25 0.375 0.375 0.5 0.5 1 1 0.75 0.75 0.5 0.5 0.375 0.375 0.25 0.25 0.125]*(1-savev),'color',[0 1 0],'LineStyle',':');
-pc=line(0.00+saveh/2+[ini fin fin 0.75 0.75 0.25 0.25 0.125 0.125 ini ini]*(1-saveh), 0.011+savev/2+[0 0 0.5 0.5 0.375 0.375 0.25 0.25 0.125 0.125 0]*(1-savev),'color',[1 0 0],'LineStyle',':');
+pa=line(-0.001+saveh/2+[ini 0.125 0.125 0.25 0.25 0.375 0.375 0.25 0.25 ini ini]*(1-saveh), 0.011+savev/2+[0.25 0.25 0.375 0.375 0.5 0.5 0.75 0.75 1 1 0.25]*(1-savev),'color',[0 0 1],'LineStyle',':');
+pb=line(-0.001+saveh/2+[ini 0.125 0.125 0.25 0.25 0.75 0.75 fin fin 0.25 0.25 0.375 0.375 0.25 0.25 0.125 0.125 ini ini]*(1-saveh), 0.011+savev/2+[0.125 0.125 0.25 0.25 0.375 0.375 0.5 0.5 1 1 0.75 0.75 0.5 0.5 0.375 0.375 0.25 0.25 0.125]*(1-savev),'color',[0 1 0],'LineStyle',':');
+pc=line(-0.001+saveh/2+[ini fin fin 0.75 0.75 0.25 0.25 0.125 0.125 ini ini]*(1-saveh), 0.011+savev/2+[0 0 0.5 0.5 0.375 0.375 0.25 0.25 0.125 0.125 0]*(1-savev),'color',[1 0 0],'LineStyle',':');
 
 %% Export and fix
 print('-depsc','inter');

@@ -8,6 +8,7 @@ cthfile=ls([cthdir '/*.mat']);
 
 n=10000;
 st=0;
+lw=2;
 
 mainfile(numel(mainfile))='';
 ctlfile(numel(ctlfile))='';
@@ -36,10 +37,11 @@ h3=bar(ax1,3,nb2d/n,'red');
 %set(get(h3,'BaseLine'),'LineWidth',1);
 
 %% Pure cooperators error bar
+c=[0 0 0];
 if (nbcoop/n - stdcoop/n < st)
-    he1=errorbar(ax1,1,nbcoop/n,nbcoop/n-st,stdcoop/n,'color',[0.3 0.6 1],'LineWidth',5);
+    he1=errorbar(ax1,1,nbcoop/n,nbcoop/n-st,stdcoop/n,'color',c,'LineWidth',lw);
 else
-    he1=errorbar(ax1,1,nbcoop/n,stdcoop/n,'color',[0.3 0.6 1],'LineWidth',5);
+    he1=errorbar(ax1,1,nbcoop/n,stdcoop/n,'color',c,'LineWidth',lw);
 end
 hee1=get(he1,'Children');
 xx=get(hee1(2),'Xdata');
@@ -47,27 +49,32 @@ xx(4)=0.8;
 xx(5)=1.2;
 xx(7)=0.8;
 xx(8)=1.2;
-set(hee1(2),'Xdata',xx);
+%set(hee1(2),'Xdata',xx);
+set(hee1(2),'XData',[1 1 NaN 1 1 NaN 1 1 NaN])
 
 %% Second order (mutdc) error bar
-he2=errorbar(ax1,2,nb2coop/n,std2coop/n,'color',[0.5 1 0.5],'LineWidth',5);
+c=[0 0 0];
+he2=errorbar(ax1,2,nb2coop/n,std2coop/n,'color',c,'LineWidth',lw);
 hee2=get(he2,'Children');
 xx=get(hee2(2),'Xdata');
 xx(4)=1.8;
 xx(5)=2.2;
 xx(7)=1.8;
 xx(8)=2.2;
-set(hee2(2),'Xdata',xx);
+%set(hee2(2),'Xdata',xx);
+set(hee2(2),'XData',[2 2 NaN 2 2 NaN 2 2 NaN])
 
 %% Second order (mutcd) error bar
-he3=errorbar(ax1,3,nb2d/n,std2d/n,'color',[1 0.5 0.5],'LineWidth',5);
+c=[0 0 0];
+he3=errorbar(ax1,3,nb2d/n,std2d/n,'color',c,'LineWidth',lw);
 hee3=get(he3,'Children');
 xx=get(hee3(2),'Xdata');
 xx(4)=2.8;
 xx(5)=3.2;
 xx(7)=2.8;
 xx(8)=3.2;
-set(hee3(2),'Xdata',xx);
+%set(hee3(2),'Xdata',xx);
+set(hee3(2),'XData',[3 3 NaN 3 3 NaN 3 3 NaN])
 
 %% Global
 ylim(ax1,[st 1.2]);
