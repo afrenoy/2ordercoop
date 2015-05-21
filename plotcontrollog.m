@@ -8,6 +8,7 @@ cthfile=ls([cthdir '/*.mat']);
 
 n=10000;
 st=0.0005;
+lw=2;
 
 mainfile(numel(mainfile))='';
 ctlfile(numel(ctlfile))='';
@@ -26,6 +27,18 @@ ax1=gca;
 %% control bars
 h4=bar(2,nbctl/n,'FaceColor',[0.5 0 0.7]);
 h5=bar(3,nbcth/n,'FaceColor',[0 0.7 0.7]);
+
+%% Error bars
+c=[0 0 0];
+line([1 1],[nbcoop/n-stdcoop/n nbcoop/n+stdcoop/n],'Color',c,'LineWidth',lw);
+%if (nbcoop/n - stdcoop/n < st)
+%    line([1 1],[st nbcoop/n+stdcoop/n],'Color',c,'LineWidth',lw);
+%else
+%    line([1 1],[nbcoop/n-stdcoop/n nbcoop/n+stdcoop/n],'Color',c,'LineWidth',lw);
+%end
+
+line([2 2],[nbctl/n-stdctl/n nbctl/n+stdctl/n],'Color',c,'LineWidth',lw);
+line([3 3],[nbcth/n-stdcth/n nbcth/n+stdcth/n],'Color',c,'LineWidth',lw);
 
 %% Global
 if (nbcoop/n<0.1) || (nbctl/n<0.1)
