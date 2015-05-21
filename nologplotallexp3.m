@@ -20,9 +20,9 @@ for m=listem
         n=n+1;
         nc=nc+1;
         desc=['c = ' num2str(c) ', m = ' num2str(m)];
-        d1=['~/data/evomut/exp1/c' num2str(c) 'mexp' num2str(m)];
-        d2=['~/data/evomut/exp1_ctl/c' num2str(c) 'mexp' num2str(m)];
-        d3=['~/data/evomut/exp1_cth/c' num2str(c) 'mexp' num2str(m)];
+        d1=['~/data/evomut/exp3/c' num2str(c) 'mexp' num2str(m)];
+        d2=['~/data/evomut/exp3_ctl/c' num2str(c) 'mexp' num2str(m)];
+        d3=['~/data/evomut/exp3_cth/c' num2str(c) 'mexp' num2str(m)];
         left=saveh+(nc*(1-saveh-hright)-1)/numel(listec)+hblank/2;
         bottom=savev+(nm*(1-savev)-1)/numel(listem)+vblank/2;
         width=(1-saveh-hright)/numel(listec)-hblank;
@@ -88,7 +88,6 @@ set(gcf, 'PaperPositionMode', 'auto');
 
 %% Add a global legend on bottom
 hl=legend([h1 h2 h3],{'Cooperation locus: proportion of allele C   m','D\rightarrow C rate locus: proportion of allele H   m','C\rightarrow D rate locus: proportion of allele H   m'},'FontSize',20,'Orientation','horizontal','Box','off');
-%hl=legend([h1 h2 h3],{'Cooperation locus: proportion of allele C','D C rate locus: proportion of allele H','C D rate locus: proportion of allele H'},'FontSize',20,'Orientation','horizontal','Box','off');
 pl=get(hl,'Position');
 pl(1)=0.03;
 pl(2)=0.0;
@@ -98,10 +97,10 @@ set(hl,'Position',pl)
 %% Draw parameter zones
 ini=-0.017;
 fin=1.011;
-pa=line(0.013+saveh/2+[ini 0.125 0.125 0.25 0.25 0.375 0.375 0.25 0.25 ini ini]*(1-saveh), 0.011+savev/2+[0.25 0.25 0.375 0.375 0.5 0.5 0.75 0.75 1 1 0.25]*(1-savev),'color',[0 0 1],'LineStyle',':');
-pb=line(0.013+saveh/2+[ini 0.125 0.125 0.25 0.25 0.75 0.75 fin fin 0.25 0.25 0.375 0.375 0.25 0.25 0.125 0.125 ini ini]*(1-saveh), 0.011+savev/2+[0.125 0.125 0.25 0.25 0.375 0.375 0.5 0.5 1 1 0.75 0.75 0.5 0.5 0.375 0.375 0.25 0.25 0.125]*(1-savev),'color',[0 1 0],'LineStyle',':');
-pc=line(0.013+saveh/2+[ini fin fin 0.75 0.75 0.25 0.25 0.125 0.125 ini ini]*(1-saveh), 0.011+savev/2+[0 0 0.5 0.5 0.375 0.375 0.25 0.25 0.125 0.125 0]*(1-savev),'color',[1 0 0],'LineStyle',':');
+pa=line(0.013+saveh/2+[ini 0.125 0.125 0.25 0.25 ini ini]*(1-saveh), 0.011+savev/2+[0.25 0.25 0.375 0.375 1 1 0.25]*(1-savev),'color',[0 0 1],'LineStyle',':');
+pb=line(0.013+saveh/2+[ini 0.125 0.125 0.375 0.375 fin fin 0.25 0.25 0.125 0.125 ini ini]*(1-saveh), 0.011+savev/2+[0.125 0.125 0.25 0.25 0.375 0.375 1 1 0.375 0.375 0.25 0.25 0.125]*(1-savev),'color',[0 1 0],'LineStyle',':');
+pc=line(0.013+saveh/2+[ini fin fin 0.375 0.375 0.125 0.125 ini ini]*(1-saveh), 0.011+savev/2+[0 0 0.375 0.375 0.25 0.25 0.125 0.125 0]*(1-savev),'color',[1 0 0],'LineStyle',':');
 
 
 %% Export and fix
-print('-depsc','-loose','1fig1');
+print('-depsc','-loose','3fig1');

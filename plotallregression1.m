@@ -3,8 +3,11 @@ listem=[1 2 5 10 20 50 100 200];
 listec=[0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9];
 values=cell(numel(listem),numel(listec));
 
-%% Produce the data (needs a few hours)
+color1=[0.176 0.533 0.176];
+color2=[0.667 0.224 0.224];
 
+%% Produce the data (needs a few hours)
+%{
 nm=0;
 for m=listem
     nc=0;
@@ -20,7 +23,7 @@ for m=listem
 end
 
 save('~/data/evomut/exp1.mat','values');
-
+%}
 
 %% Draw a subplot for each parameter combination
 load('~/data/evomut/exp1.mat')
@@ -56,9 +59,9 @@ for m=listem
                 
         %ylim([0 6])
         h1=bar(1,m1);
-        set(h1,'FaceColor',[0.2 0.8 0.4]);
-        h2=bar(2,m2,'r');
-        set(h2,'FaceColor',[1 0 0]);
+        set(h1,'FaceColor',color1);
+        h2=bar(2,m2);
+        set(h2,'FaceColor',color2);
         if max(m1,m2)<0.1
             ylim([0 0.1]);
             set(gca,'Ytick',[0 0.04 0.08]);
@@ -117,12 +120,12 @@ set(gcf,'units','normalized','outerposition',[0 0 0.6 1]);
 set(gcf, 'PaperPositionMode', 'auto');
 
 %% Add a global legend on bottom
-hl=legend([h1 h2],{'Proximity of (D, *, H_{DC}) with (C, *, *)','Proximity of (D, *, L_{DC}) with (C, *, *)'},'FontSize',20,'Orientation','horizontal','Box','off');
+hl=legend([h1 h2],{'Proximity of (D, *, H_{DC}) with (C, *, *)      m','Proximity of (D, *, L_{DC}) with (C, *, *)'},'FontSize',20,'Orientation','horizontal','Box','off');
 % Legend
 %hl=legend([h1 h4 h5],{'C allele when evolving mutation rates','C allele when enforcing low mutation rate','C allele when enforcing high mutation rate'},'FontSize',20,'Orientation','horizontal','Box','off');
 %hl=legend([h1 h2 h3],{'Cooperation loci: proportion of allele C','D\rightarrow C rate loci: proportion of allele H','C\rightarrow D rate loci: proportion of allele H'},'FontSize',20,'Orientation','horizontal','Box','off');
 pl=get(hl,'Position');
-pl(1)=0.2;
+pl(1)=0.1;
 pl(2)=0.0;
 pl(3)=0.8;
 set(hl,'Position',pl)
@@ -137,6 +140,4 @@ pb=line(-0.001+saveh/2+[ini 0.125 0.125 0.25 0.25 0.75 0.75 fin fin 0.25 0.25 0.
 pc=line(-0.001+saveh/2+[ini fin fin 0.75 0.75 0.25 0.25 0.125 0.125 ini ini]*(1-saveh), 0.011+savev/2+[0 0 0.5 0.5 0.375 0.375 0.25 0.25 0.125 0.125 0]*(1-savev),'color',[1 0 0],'LineStyle',':');
 
 %% Export and fix
-print('-depsc','inter');
-system('cat inter.eps |sed -E "s/^\/DO.*/\/DO \{ [5 dpi2point mul 5 dpi2point mul] 0 setdash } bdef/g" >1fig3.eps');
-system('rm inter.eps');
+print('-depsc','-loose','1fig3');

@@ -18,8 +18,9 @@ cthfile(numel(cthfile))='';
 
 %% Pure cooperators
 hold on;
-h1=bar(1,nbcoop/n,'blue');
+h1=bar(1,nbcoop/n);
 set(h1,'BaseValue',st);
+set(h1,'FaceColor',[0.169 0.294 0.435]);
 ax1=gca;
 
 %% control bars

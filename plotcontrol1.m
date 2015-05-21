@@ -70,9 +70,9 @@ set(gcf, 'PaperPositionMode', 'auto');
 
 % Add a global legend on bottom
 % Legend
-hl=legend([h1 h4 h5],{'C allele when evolving mutation rates','C allele when enforcing low mutation rate','C allele when enforcing high mutation rate'},'FontSize',20,'Orientation','horizontal','Box','off');
+hl=legend([h1 h4 h5],{'C allele when evolving mutation rates   m','C allele when enforcing low mutation rate   m','C allele when enforcing high mutation rate   m'},'FontSize',20,'Orientation','horizontal','Box','off');
 pl=get(hl,'Position');
-pl(1)=0.05;
+pl(1)=0.03;
 pl(2)=0.0;
 pl(3)=1;
 set(hl,'Position',pl)
@@ -87,6 +87,4 @@ pc=line(0.001+saveh/2+[ini fin fin 0.75 0.75 0.25 0.25 0.125 0.125 ini ini]*(1-s
 
 
 %% Export and fix
-print('-depsc','inter');
-system('cat inter.eps |sed -E "s/^\/DO.*/\/DO \{ [5 dpi2point mul 5 dpi2point mul] 0 setdash } bdef/g" >1fig2.eps');
-system('rm inter.eps');
+print('-depsc','-loose','1fig2');
