@@ -2,6 +2,13 @@ function [ax1,h1,h4,h5] = plotcontrollog( maindir,ctldir,cthdir,desc )
 %PLOTEXP Summary of this function goes here
 %   Detailed explanation goes here
 
+
+C=[0.169 0.294 0.435]*10/9;
+HDC=[0.176 0.533 0.176]*10/9;
+HCD=[0.667 0.224 0.224]*10/9;
+ctH=[0 0.7 0.7];
+ctL=[0.5 0 0.7];
+
 mainfile=ls([maindir '/*.mat']);
 ctlfile=ls([ctldir '/*.mat']);
 cthfile=ls([cthdir '/*.mat']);
@@ -21,12 +28,12 @@ cthfile(numel(cthfile))='';
 hold on;
 h1=bar(1,nbcoop/n);
 set(h1,'BaseValue',st);
-set(h1,'FaceColor',[0.169 0.294 0.435]);
+set(h1,'FaceColor',C);
 ax1=gca;
 
 %% control bars
-h4=bar(2,nbctl/n,'FaceColor',[0.5 0 0.7]);
-h5=bar(3,nbcth/n,'FaceColor',[0 0.7 0.7]);
+h4=bar(2,nbctl/n,'FaceColor',ctL);
+h5=bar(3,nbcth/n,'FaceColor',ctH);
 
 %% Error bars
 c=[0 0 0];

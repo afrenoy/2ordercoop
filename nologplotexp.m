@@ -3,9 +3,9 @@ function [ax1,h1,h2,h3] = nologplotexp( maindir,ctldir,cthdir,desc )
 %   Detailed explanation goes here
 
 %% Parameters
-C=[0.169 0.294 0.435];
-HDC=[0.176 0.533 0.176];
-HCD=[0.667 0.224 0.224];
+C=[0.169 0.294 0.435]*10/9;
+HDC=[0.176 0.533 0.176]*10/9;
+HCD=[0.667 0.224 0.224]*10/9;
 
 %% Computing data
 mainfile=ls([maindir '/*.mat']);

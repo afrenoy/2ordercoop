@@ -3,8 +3,8 @@ listem=[1 2 5 10 20 50 100 200];
 listec=[0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9];
 values=cell(numel(listem),numel(listec));
 
-color1=[0.176 0.533 0.176];
-color2=[0.667 0.224 0.224];
+color1=[0.176 0.533 0.176]*10/9;
+color2=[0.667 0.224 0.224]*10/9;
 
 %% Produce the data (needs a few hours)
 %{
@@ -56,7 +56,8 @@ for m=listem
         s2=std(mm2);
         subplot('Position',[left bottom width height]);
         hold on;
-                
+        
+        % Data bars
         %ylim([0 6])
         h1=bar(1,m1);
         set(h1,'FaceColor',color1);
@@ -76,10 +77,17 @@ for m=listem
         set(gca,'TickLength',[0.03 0.03]);
         set(gca,'YMinorTick','off');
 
-        [h,p]=ttest(mm1,mm2,'tail','right');
+        % P-values
+        [h,p]=ttest(mm1,mm2,'tail','right');rp(nm,nc)=p;
         if p<0.0001
             text(0.45,0.9,'***','Unit','normalized','FontSize',25);
         end
+        
+        % Error bars
+        col=[0 0 0];
+        lw=2;
+        line([1 1],[m1-s1 m1+s1],'Color',col,'LineWidth',lw);
+        line([2 2],[m2-s2 m2+s2],'Color',col,'LineWidth',lw);
         
         hold off;
     end
@@ -135,9 +143,10 @@ set(hl,'Position',pl)
 ini=-0.001;
 %fin=1.02;
 fin=1;
+
 pa=line(-0.001+saveh/2+[ini 0.125 0.125 0.25 0.25 0.375 0.375 0.25 0.25 ini ini]*(1-saveh), 0.011+savev/2+[0.25 0.25 0.375 0.375 0.5 0.5 0.75 0.75 1 1 0.25]*(1-savev),'color',[0 0 1],'LineStyle',':');
-pb=line(-0.001+saveh/2+[ini 0.125 0.125 0.25 0.25 0.75 0.75 fin fin 0.25 0.25 0.375 0.375 0.25 0.25 0.125 0.125 ini ini]*(1-saveh), 0.011+savev/2+[0.125 0.125 0.25 0.25 0.375 0.375 0.5 0.5 1 1 0.75 0.75 0.5 0.5 0.375 0.375 0.25 0.25 0.125]*(1-savev),'color',[0 1 0],'LineStyle',':');
-pc=line(-0.001+saveh/2+[ini fin fin 0.75 0.75 0.25 0.25 0.125 0.125 ini ini]*(1-saveh), 0.011+savev/2+[0 0 0.5 0.5 0.375 0.375 0.25 0.25 0.125 0.125 0]*(1-savev),'color',[1 0 0],'LineStyle',':');
+pb=line(-0.001+saveh/2+[ini 0.125 0.125 0.375 0.375 0.875 0.875 fin fin 0.25 0.25 0.375 0.375 0.25 0.25 0.125 0.125 ini ini]*(1-saveh), 0.011+savev/2+[0.125 0.125 0.25 0.25 0.375 0.375 0.5 0.5 1 1 0.75 0.75 0.5 0.5 0.375 0.375 0.25 0.25 0.125]*(1-savev),'color',[0 1 0],'LineStyle',':');
+pc=line(-0.001+saveh/2+[ini fin fin 0.875 0.875 0.375 0.375 0.125 0.125 ini ini]*(1-saveh), 0.011+savev/2+[0 0 0.5 0.5 0.375 0.375 0.25 0.25 0.125 0.125 0]*(1-savev),'color',[1 0 0],'LineStyle',':');
 
 %% Export and fix
-print('-depsc','-loose','1fig3');
+print('-depsc','-loose','data1assort');

@@ -12,6 +12,10 @@ savev=0.1; % What vertical space to leave at the bottom of the figure for 'globa
 
 hright=0.01;
 
+% Will be used to infer different zones
+nbc=zeros(8,8);
+nb2c=zeros(8,8);
+
 nm=0;
 for m=listem
     nc=0;
@@ -28,7 +32,9 @@ for m=listem
         width=(1-saveh-hright)/numel(listec)-hblank;
         height=(1-savev)/numel(listem)-vblank;
         subplot('Position',[left bottom width height]);
-        [ax1,h1,h2,h3]=nologplotexp(d1,d2,d3,'');
+        [ax1,h1,h2,h3,nbcoop,nb2coop]=nologplotexp(d1,d2,d3,'');
+        nbc(nm,nc)=nbcoop;
+        nb2c(nm,nc)=nb2coop;
         if c==min(listec)
             set(ax1,'YAxisLocation','left');
             set(ax1,'color','none');
@@ -52,6 +58,8 @@ for m=listem
         set(ax1,'FontSize',18);
     end
 end
+z=(nbc<5000) & (nb2c>5000);
+zz=z(8:-1:1,1:8); % Help to identify the green zone
 
 %% Print parameter values on the left and the bottom
 
@@ -103,4 +111,4 @@ pc=line(0.013+saveh/2+[ini fin fin 0.375 0.375 0.125 0.125 ini ini]*(1-saveh), 0
 
 
 %% Export and fix
-print('-depsc','-loose','3fig1');
+print('-depsc','-loose','data2');
