@@ -1,5 +1,5 @@
 function [ ] = repls2phenotypic( basepath, nrep,ngen,sizex,sizey,def_mutdc,evo_mutdc,mut_mutcoop,mut_neutral,basefitness,cost,benefit,mexp,liquid,record )
-%REPLS2 Perform a set of experiments: call the model for several replicates
+%REPLS2PHENOTYPIC Perform a set of experiments: call the model for several replicates
 %and output graphes
 
 if ~exist(basepath,'dir')
@@ -17,7 +17,7 @@ neutral_nb = zeros(nrep,ngen);
 
 for a=1:nrep
   recordpath=sprintf('%s/%d',basepath,baseseed+a);
-  [secretion_nb(a,:),mutators_dc_nb(a,:),neutral_nb(a,:)]=s2(baseseed+a,ngen,sizex,sizey,def_mutdc,evo_mutdc,mut_mutcoop,mut_neutral,basefitness,cost,benefit,mexp,liquid,recordpath,record,false);
+  [secretion_nb(a,:),mutators_dc_nb(a,:),neutral_nb(a,:)]=s2phenotypic(baseseed+a,ngen,sizex,sizey,def_mutdc,evo_mutdc,mut_mutcoop,mut_neutral,basefitness,cost,benefit,mexp,liquid,recordpath,record,false);
 end
 
 m_secretion=mean(secretion_nb,1);
