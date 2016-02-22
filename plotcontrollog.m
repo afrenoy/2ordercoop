@@ -1,4 +1,4 @@
-function [ax1,h1,h4,h5] = plotcontrollog( maindir,ctldir,cthdir,desc )
+function [ax1,h1,h4,h5] = plotcontrollog( maindir,ctldir,cthdir,desc,lw1,lw2 )
 %PLOTEXP Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -15,7 +15,6 @@ cthfile=ls([cthdir '/*.mat']);
 
 n=10000;
 st=0.0005;
-lw=2;
 
 mainfile(numel(mainfile))='';
 ctlfile(numel(ctlfile))='';
@@ -37,24 +36,26 @@ h5=bar(3,nbcth/n,'FaceColor',ctH);
 
 %% Error bars
 c=[0 0 0];
-line([1 1],[nbcoop/n-stdcoop/n nbcoop/n+stdcoop/n],'Color',c,'LineWidth',lw);
+line([1 1],[nbcoop/n-stdcoop/n nbcoop/n+stdcoop/n],'Color',c,'LineWidth',lw2);
 %if (nbcoop/n - stdcoop/n < st)
 %    line([1 1],[st nbcoop/n+stdcoop/n],'Color',c,'LineWidth',lw);
 %else
 %    line([1 1],[nbcoop/n-stdcoop/n nbcoop/n+stdcoop/n],'Color',c,'LineWidth',lw);
 %end
 
-line([2 2],[nbctl/n-stdctl/n nbctl/n+stdctl/n],'Color',c,'LineWidth',lw);
-line([3 3],[nbcth/n-stdcth/n nbcth/n+stdcth/n],'Color',c,'LineWidth',lw);
+line([2 2],[nbctl/n-stdctl/n nbctl/n+stdctl/n],'Color',c,'LineWidth',lw2);
+line([3 3],[nbcth/n-stdcth/n nbcth/n+stdcth/n],'Color',c,'LineWidth',lw2);
 
 %% Global
 if (nbcoop/n<0.1) || (nbctl/n<0.1)
     set(gca,'Yscale','log');
     ylim(gca,[st 1]);
     set(gca,'Ytick',[0.001,0.01,0.1]);
+    set(gca,'YtickLabel',{'-3','-2','-1'});
 else
     ylim(gca,[0 1.2]);
-    set(gca,'Ytick',[0 0.5 1]);
+    set(gca,'Ytick',[0 1]);
+    set(gca,'YMinorTick','on');
 end
 
 xlim(gca,[0.4 3.6]);

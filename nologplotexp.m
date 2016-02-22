@@ -1,4 +1,4 @@
-function [ax1,h1,h2,h3] = nologplotexp( maindir,ctldir,cthdir,desc )
+function [ax1,h1,h2,h3,nbcoop,nb2coop] = nologplotexp( maindir,ctldir,cthdir,desc, lw1,lw2 )
 %PLOTEXP Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -14,7 +14,6 @@ cthfile=ls([cthdir '/*.mat']);
 
 n=10000;
 st=0;
-lw=2;
 
 mainfile(numel(mainfile))='';
 ctlfile(numel(ctlfile))='';
@@ -26,34 +25,30 @@ cthfile(numel(cthfile))='';
 %% Pure cooperators
 hold on;
 ax1=gca;
-set(ax1,'LineWidth',1);
-h1=bar(ax1,1,nbcoop/n);
-set(h1,'FaceColor',C)
-%set(get(h1,'BaseLine'),'LineWidth',1);
-%set(get(h1,'BaseLine'),'Visible','off');
+%set(ax1,'LineWidth',lw1);
+h1=bar(ax1,1,nbcoop/n,'LineWidth',lw1);
+%h1=bar(ax1,1,nbcoop/n,'LineStyle','none');
+uistack(h1,'bottom');
+set(h1,'FaceColor',C);
 
 %% Second order (mutdc)
 h2=bar(ax1,2,nb2coop/n);
-%set(get(h2,'BaseLine'),'LineWidth',1);
-%set(get(h2,'BaseLine'),'Visible','off');
 set(h2,'FaceColor',HDC);
 
 %% Second order (mutcd)
 h3=bar(ax1,3,nb2d/n);
 set(h3,'FaceColor',HCD);
-%set(get(h3,'BaseLine'),'Visible','off');
-%set(get(h3,'BaseLine'),'LineWidth',1);
 
 %% Error bars
 c=[0 0 0];
 if (nbcoop/n - stdcoop/n < st)
-    line([1 1],[st nbcoop/n+stdcoop/n],'Color',c,'LineWidth',lw);
+    line([1 1],[st nbcoop/n+stdcoop/n],'Color',c,'LineWidth',lw2);
 else
-    line([1 1],[nbcoop/n-stdcoop/n nbcoop/n+stdcoop/n],'Color',c,'LineWidth',lw);
+    line([1 1],[nbcoop/n-stdcoop/n nbcoop/n+stdcoop/n],'Color',c,'LineWidth',lw2);
 end
 
-line([2 2],[nb2coop/n-std2coop/n nb2coop/n+std2coop/n],'Color',c,'LineWidth',lw);
-line([3 3],[nb2d/n-std2d/n nb2d/n+std2d/n],'Color',c,'LineWidth',lw);
+line([2 2],[nb2coop/n-std2coop/n nb2coop/n+std2coop/n],'Color',c,'LineWidth',lw2);
+line([3 3],[nb2d/n-std2d/n nb2d/n+std2d/n],'Color',c,'LineWidth',lw2);
 
 %% Global
 ylim(ax1,[st 1.2]);
