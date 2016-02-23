@@ -41,11 +41,12 @@ load('~/data/evomut/exp1.mat')
 
 n=0;
 
-hblank=0.045; % What horizontal space to leave between two subplots
+hblank=0.03; % What horizontal space to leave between two subplots
 vblank=0.015; % What vertical space to leave between two subplots
 
 saveh=0.07; % What horizontal space to leave at the left of the figure for 'global' labels
 savev=0.1; % What vertical space to leave at the bottom of the figure for 'global' labels
+savehr=0.03;
 
 
 nm=0;
@@ -55,9 +56,9 @@ for m=listem
     for c=listec
         n=n+1;
         nc=nc+1;
-        left=saveh+(nc*(1-saveh)-1)/numel(listec)+hblank/2;
+        left=saveh+(nc*(1-saveh-savehr)-1)/numel(listec)+hblank/2;
         bottom=savev+(nm*(1-savev)-1)/numel(listem)+vblank/2;
-        width=(1-saveh)/numel(listec)-hblank;
+        width=(1-saveh-savehr)/numel(listec)-hblank;
         height=(1-savev)/numel(listem)-vblank;
         mm1=values{nm,nc}(:,1);
         mm2=values{nm,nc}(:,2);
@@ -88,11 +89,18 @@ for m=listem
         set(gca,'TickLength',[0.03 0.03]);
         set(gca,'YMinorTick','off');
         set(gca,'LineWidth',lw1);
+        if c==min(listec)
+            set(gca,'YaxisLocation','left');
+        elseif c==max(listec)
+            set(gca,'YaxisLocation','right');
+        else
+            set(gca,'Ycolor','none');
+        end
 
         % P-values
         [h,p]=ttest(mm1,mm2,'tail','right');rp(nm,nc)=p;
         if p<0.0001
-            text(0.45,0.9,'***','Unit','normalized','FontSize',fs1);
+            text(0.4,0.8,'***','Unit','normalized','FontSize',fs1);
         end
         
         % Error bars
@@ -120,7 +128,7 @@ end
 nc=0;
 for c=listec
     nc=nc+1;
-    t=text((nc*(1-saveh)-1)/numel(listec)+hblank/2+((1-saveh)/numel(listec)-hblank)/2-0.04,0.70,['c = ' num2str(c)],'FontSize',fs1,'FontWeight','normal');
+    t=text((nc*(1-saveh-savehr)-1)/numel(listec)+hblank/2+((1-saveh-savehr)/numel(listec)-hblank)/2-0.04,0.70,['c = ' num2str(c)],'FontSize',fs1,'FontWeight','normal');
     set(t,'Parent',bottomax);
 end
 
@@ -153,13 +161,13 @@ set(hl,'Position',pl)
 
 %% Draw parameter zones
 %ini=-0.004;
-ini=-0.001;
+ini=-0.035;
 %fin=1.02;
-fin=1.02;
+fin=1.03;
 
-pa=patch(-0.01+saveh/2+[ini 0.125 0.125 0.25 0.25 0.375 0.375 0.25 0.25 ini ini]*(1-saveh), 0.011+savev/2+[0.25 0.25 0.375 0.375 0.5 0.5 0.75 0.75 1 1 0.25]*(1-savev),colorb1,'LineStyle','none');
-pb=patch(-0.01+saveh/2+[ini 0.125 0.125 0.375 0.375 0.875 0.875 fin fin 0.25 0.25 0.375 0.375 0.25 0.25 0.125 0.125 ini ini]*(1-saveh), 0.011+savev/2+[0.125 0.125 0.25 0.25 0.375 0.375 0.5 0.5 1 1 0.75 0.75 0.5 0.5 0.375 0.375 0.25 0.25 0.125]*(1-savev),colorb2,'LineStyle','none');
-pc=patch(-0.01+saveh/2+[ini fin fin 0.875 0.875 0.375 0.375 0.125 0.125 ini ini]*(1-saveh), 0.011+savev/2+[0 0 0.5 0.5 0.375 0.375 0.25 0.25 0.125 0.125 0]*(1-savev),colorb3,'LineStyle','none');
+pa=patch(0.01+saveh/2+[ini 0.125 0.125 0.25 0.25 0.375 0.375 0.25 0.25 ini ini]*(1-saveh-savehr), 0.01+savev/2+[0.25 0.25 0.375 0.375 0.5 0.5 0.75 0.75 1 1 0.25]*(1-savev),colorb1,'LineStyle','none');
+pb=patch(0.01+saveh/2+[ini 0.125 0.125 0.375 0.375 0.875 0.875 fin fin 0.25 0.25 0.375 0.375 0.25 0.25 0.125 0.125 ini ini]*(1-saveh-savehr), 0.01+savev/2+[0.125 0.125 0.25 0.25 0.375 0.375 0.5 0.5 1 1 0.75 0.75 0.5 0.5 0.375 0.375 0.25 0.25 0.125]*(1-savev),colorb2,'LineStyle','none');
+pc=patch(0.01+saveh/2+[ini fin fin 0.875 0.875 0.375 0.375 0.125 0.125 ini ini]*(1-saveh-savehr), 0.01+savev/2+[0 0 0.5 0.5 0.375 0.375 0.25 0.25 0.125 0.125 0]*(1-savev),colorb3,'LineStyle','none');
 uistack(new,'bottom');
 
 %% Export and fix
