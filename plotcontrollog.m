@@ -51,7 +51,6 @@ if (nbcoop/n<0.1) || (nbctl/n<0.1)
     set(gca,'Yscale','log');
     ylim(gca,[st 1]);
     set(gca,'Ytick',[0.001,0.01,0.1]);
-    set(gca,'YtickLabel',{'-3','-2','-1'});
 else
     ylim(gca,[0 1.2]);
     set(gca,'Ytick',[0 1]);

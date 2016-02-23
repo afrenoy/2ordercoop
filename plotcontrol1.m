@@ -37,7 +37,7 @@ for m=listem
         width=(1-saveh-savehr)/numel(listec)-hblank;
         height=(1-savev)/numel(listem)-vblank;
         subplot('Position',[left bottom width height]);
-        [ax1,h1,h4,h5]=plotcontrollogbis(d1,d2,d3,'',lw1,lw2);
+        [ax1,h1,h4,h5]=plotcontrollog(d1,d2,d3,'',lw1,lw2);
         set(ax1,'FontSize',fs1);
         set(ax1,'LineWidth',lw1);
         set(ax1,'color','none');
