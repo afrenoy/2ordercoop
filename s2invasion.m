@@ -36,13 +36,13 @@ for x = 1:sizex
     else
       mutcd(x,y)=mutcd1;
     end
-    mutdc(x,y)=1-raretype; % raretype is 1 for HDC mutator, 0 for LDC
+    mutdc(x,y)=(1-raretype)*mutdc1+raretype*mutdc0; % raretype is 1 for HDC mutator, 0 for LDC
   end
 end
 
 xrare=floor(sizex/2);
-yrare=flooc(sizey/2);
-mutdc(xrare,yrare)=raretype; % The rare indiviual at the middle of the grid
+yrare=floor(sizey/2);
+mutdc(xrare,yrare)=raretype*mutdc1+(1-raretype)*mutdc0; % The rare indiviual at the middle of the grid
 
 %% Initialize the recording
 secretion_nb=zeros(1,ngen);
