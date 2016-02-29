@@ -16,11 +16,11 @@ mutators_cd_nb = zeros(nrep,ngen);
 
 for a=1:nrep
   recordpath=sprintf('%s/%d',basepath,baseseed+a);
-  [secretion_nb(a,:),mutators_dc_nb(a,:),mutators_cd_nb(a,:)]=s2(baseseed+a,ngen,sizex,sizey,def_mutdc,def_mutcd,evo_mutdc,evo_mutcd,basefitness,cost,benefit,mexp,liquid,raretype,recordpath,record,false);
+  [secretion_nb(a,:),mutators_dc_nb(a,:),mutators_cd_nb(a,:)]=s2invasion(baseseed+a,ngen,sizex,sizey,def_mutdc,def_mutcd,evo_mutdc,evo_mutcd,basefitness,cost,benefit,mexp,liquid,raretype,recordpath,record,false);
 end
 
 save([psave '.mat'],'secretion_nb','mutators_dc_nb','mutators_cd_nb',...
-                    'ngen','sizex','sizey','def_mutdc','def_mutcd','evo_mutdc','evo_mutcd','mut_mutcoop',...
+                    'ngen','sizex','sizey','def_mutdc','def_mutcd','evo_mutdc','evo_mutcd',...
                     'basefitness','cost','benefit','mexp','liquid','raretype');
 
 end
