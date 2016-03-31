@@ -22,7 +22,11 @@ v4=mean(c.secretion_nb(:,1500:2000),2);
 nbcth=mean(v4);
 stdcth=std(v4);
 
-v5=mean(a.mutators_cd_nb(:,1500:2000),2);
+if isfield(a,'mutators_cd_nb')
+    v5=mean(a.mutators_cd_nb(:,1500:2000),2);
+else
+    v5=v2;
+end
 nb2d=mean(v5);
 std2d=std(v5);
 
