@@ -176,7 +176,9 @@ for g=1:ngen
       
       if sum(localfit)==0
           assert(sterile);
-          error('No viable neighboor found');
+          fprintf('Failed at generation %d!\n',g);
+          pause(5);
+          error('No viable neighboor found\n');
       end
 
       % Compute the probability of reproduction of each individual
