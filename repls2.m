@@ -1,6 +1,7 @@
 function [ ] = repls2( basepath, nrep,ngen,sizex,sizey,def_mutdc,def_mutcd,evo_mutdc,evo_mutcd,mut_mutcoop,mut_neutral,basefitness,cost,benefit,mexp,liquid,sterile,record )
 %REPLS2 Perform a set of experiments: call the model for several replicates
-%and output graphes
+%(and optionally output graphes)
+producegraphics=false;
 
 if ~exist(basepath,'dir')
   mkdir(basepath);
@@ -42,20 +43,22 @@ save([psave '.mat'],'secretion_nb','mutators_dc_nb','mutators_cd_nb','neutral_nb
                     'ngen','sizex','sizey','def_mutdc','def_mutcd','evo_mutdc','evo_mutcd','mut_mutcoop','mut_neutral',...
                     'basefitness','cost','benefit','mexp','liquid','sterile');
 
-[h]=plotErrorBar([m_secretion;m_mutators_dc;m_mutators_cd;m_neutral],[se_secretion;se_mutators_dc;se_mutators_cd;se_neutral]);
-ylim([0 sizex*sizey]);
+if producegraphics
+    [h]=plotErrorBar([m_secretion;m_mutators_dc;m_mutators_cd;m_neutral],[se_secretion;se_mutators_dc;se_mutators_cd;se_neutral]);
+    ylim([0 sizex*sizey]);
 
-legend(h,{'Secretors','High mut d->c','High mut c->d','Neutral gene'},'FontSize',13,'Location','NorthWest');
+    legend(h,{'Secretors','High mut d->c','High mut c->d','Neutral gene'},'FontSize',13,'Location','NorthWest');
 
-set(gcf, 'PaperUnits', 'centimeters');
-set(gcf, 'PaperSize', [20 15]);
-set(gcf, 'PaperPositionMode', 'auto');
+    set(gcf, 'PaperUnits', 'centimeters');
+    set(gcf, 'PaperSize', [20 15]);
+    set(gcf, 'PaperPositionMode', 'auto');
 
-print('-depsc2',[psave '.eps']);
-print('-dpdf',[psave '.pdf']);
-hgsave([psave '.fig']);
+    print('-depsc2',[psave '.eps']);
+    print('-dpdf',[psave '.pdf']);
+    hgsave([psave '.fig']);
 
-close all;
+    close all;
+end
 
 end
 
