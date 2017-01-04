@@ -2,24 +2,8 @@ function [secretion_nb,mutators_dc_nb,mutators_cd_nb,neutral_nb] = s2(seed,ngen,
 %S2 A simple spatially structured model of cooperation without public good: evolvable, different mutation rates (d->c and c->d)
 %Selection is fitness-proportionate and therefore does not depend on rank
 
-%% Initialize the random seed
-if exist('seed','var')
-  rng(seed)
-else
-  rng('shuffle');
-end
-
-%% Intitialize parameters
-if ~exist('liquid','var')
-  liquid=false;
-end
-
-%% Graphic properties
-if ~exist('graphics','var')
-  graphics=false;
-end
-
-sq = 1;
+rng(seed) % Initialize the random seed
+sq = 1; % Graphic properties
 
 %% Initialize the grid
 
