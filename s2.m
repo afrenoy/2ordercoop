@@ -1,4 +1,4 @@
-function [secretion_nb,mutators_dc_nb,mutators_cd_nb,neutral_nb] = s2(seed,ngen,sizex,sizey,mutdc0,mutcd0,mutdc1,mutcd1,mut_mutcoop,mut_neutral,basefitness,cost,benefit,mexp,liquid,recordpath,record,graphics)
+function [secretion_nb,mutators_dc_nb,mutators_cd_nb,neutral_nb] = s2(seed,ngen,sizex,sizey,mutdc0,mutcd0,mutdc1,mutcd1,mut_mutcoop,mut_neutral,basefitness,cost,benefit,mexp,liquid,sterile,recordpath,record,graphics)
 %S2 A simple spatially structured model of cooperation without public good: evolvable, different mutation rates (d->c and c->d)
 %Selection is fitness-proportionate and therefore does not depend on rank
 
@@ -132,6 +132,9 @@ for g=1:ngen
       if (fitness(x,y)<0)
         fitness(x,y)=0;
       end
+      if sterile && secretion(x,y)==1
+          fitness(x,y)=0;
+      end
       
     end
   end
@@ -168,6 +171,11 @@ for g=1:ngen
         end
       end
       
+      if sum(localfit)==0
+          assert(sterile);
+          error('No viable neighboor found');
+      end
+
       % Compute the probability of reproduction of each individual
       for n=1:9
         localprob(n)=localfit(n)/sum(localfit);
