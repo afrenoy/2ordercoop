@@ -12,9 +12,7 @@ mkdir -p ${ERRORDIR}
 mkdir -p ${LOGDIR}
 
 # 30000 cpu should allow 5 replicates of 5000 generations with 10000 individuals when no recording
-#qsub -e ${ERRORDIR} -o ${LOGDIR} -l matlab=1,sps=1,ct=70000,vmem=4000M,fsize=2000M -N ${2} << EOF
-#qsub -e ${ERRORDIR} -o ${LOGDIR} -l matlab=1,sps=1,ct=20000,vmem=4000M,fsize=1000M -N ${2} << EOF
-qsub -e ${ERRORDIR} -o ${LOGDIR} -l matlab=1,sps=1,ct=50000,vmem=4000M,fsize=1000M -N ${2} << EOF
+qsub -e ${ERRORDIR} -o ${LOGDIR} -l matlab=1,sps=1,ct=30000,vmem=4000M,fsize=1000M -N ${2} << EOF
 matlab -nojvm -nodisplay -r 'temp_${2}'
 EOF
 
