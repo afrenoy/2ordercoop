@@ -16,6 +16,9 @@ neutral=zeros(sizex,sizey);
 for x = 1:sizex
   for y = 1:sizey
     secretion(x,y)=floor(rand(1)*2);
+    if sterile % No pure cooperators at the begining if they are sterile
+        secretion(x,y)=0;
+    end
     if (floor(rand(1)*2)==0)
       mutdc(x,y)=mutdc0;
     else
