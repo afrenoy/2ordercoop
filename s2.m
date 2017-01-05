@@ -199,6 +199,11 @@ for g=1:ngen
       ny=mod((y+ty-1),sizey)+1;
       
       %% Copy the selected individual
+      if sterile && secretion(nx,ny)==1
+          fprintf('Sterile individual reproducing !\n');
+          pause(5);
+          error('This should not happen!\n');
+      end
       nsecretion(x,y) = secretion(nx,ny);
       nmutdc(x,y) = mutdc(nx,ny);
       nmutcd(x,y) = mutcd(nx,ny);
