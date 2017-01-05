@@ -1,4 +1,4 @@
-%PLOTEXP4 produces figure S2 (exp4. mutation rate between 0.001 and 0.5)
+%PLOTEXP2 produces figure S1 (exp2, mutation rate between 0.001 and 0.1)
 
 %% Global parameters
 scaling=3;
@@ -34,15 +34,15 @@ for m=listem
         n=n+1;
         nc=nc+1;
         desc=['c = ' num2str(c) ', m = ' num2str(m)];
-        d1=['~/data/evomut/exp4/c' num2str(c) 'mexp' num2str(m)];
-        d2=['~/data/evomut/exp3_ctl/c' num2str(c) 'mexp' num2str(m)];
-        d3=['~/data/evomut/exp4_cth/c' num2str(c) 'mexp' num2str(m)];
+        d1=['~/data/evomut/exp2/c' num2str(c) 'mexp' num2str(m)];
+        d2=['~/data/evomut/exp2_ctl/c' num2str(c) 'mexp' num2str(m)];
+        d3=['~/data/evomut/exp2_cth/c' num2str(c) 'mexp' num2str(m)];
         left=saveh+(nc*(1-saveh-hright)-1)/numel(listec)+hblank/2;
         bottom=savev+(nm*(1-savev)-1)/numel(listem)+vblank/2;
         width=(1-saveh-hright)/numel(listec)-hblank;
         height=(1-savev)/numel(listem)-vblank;
         subplot('Position',[left bottom width height]);
-        [ax1,h1,h2,h3,nbcoop,nb2coop]=nologplotexp(d1,d2,d3,'',lw1,lw2);
+        [ax1,h1,h2,h3,nbcoop,nb2coop]=plotexppanel(d1);
         nbc(nm,nc)=nbcoop;
         nb2c(nm,nc)=nb2coop;
         if c==min(listec)
@@ -69,7 +69,7 @@ for m=listem
             set(ax1,'LineWidth',lw1);
         end
         set(ax1,'Box','off');
-        set(ax1,'FontSize',fs1);
+        set(ax1,'FontSize',18);
     end
 end
 z=(nbc<5000) & (nb2c>5000);
@@ -102,10 +102,6 @@ set(new, 'Xlim',[0 1]);
 set(new, 'Ylim',[0 1]);
 set(new,'Visible','off');
 
-%% Print parameter names
-%text(0.45,0.025,'Cooperation cost (c)','FontSize',fs3);
-%text(-0.005,0.45,'Selection pressure (m)','FontSize',fs3,'rotation',90);
-
 %% Make figure bigger for export
 set(gcf,'PaperUnits','centimeters');
 set(gcf,'PaperSize',[8.7 8.7]*scaling);
@@ -123,11 +119,11 @@ set(hl,'Position',pl)
 %% Draw parameter zones
 ini=-0.017;
 fin=1.011;
-pa=patch(0.013+saveh/2+[ini 0.125 0.125 ini ini]*(1-saveh), 0.011+savev/2+[0.375 0.375 1 1 0.375]*(1-savev),[216.6667  230.0000  246.6667]/255,'LineStyle','none');
-pb=patch(0.013+saveh/2+[ini 0.125 0.125 0.75 0.75 fin fin 0.125 0.125 ini ini]*(1-saveh), 0.011+savev/2+[0.25 0.25 0.375 0.375 0.5 0.5 1 1 0.375 0.375 0.25]*(1-savev),[226.6667 255 226.6667]/255,'LineStyle','none');
-pc=patch(0.013+saveh/2+[ini fin fin 0.75 0.75 0.125 0.125 ini ini]*(1-saveh), 0.011+savev/2+[0 0 0.5 0.5 0.375 0.375 0.25 0.25 0]*(1-savev),[242.2222 214.4444 246.6667]/255,'LineStyle','none');
+pa=patch(0.013+saveh/2+[ini 0.125 0.125 0.25 0.25 ini ini]*(1-saveh), 0.011+savev/2+[0.25 0.25 0.375 0.375 1 1 0.25]*(1-savev),[216.6667  230.0000  246.6667]/255,'LineStyle','none');
+pb=patch(0.013+saveh/2+[ini 0.125 0.125 0.375 0.375 fin fin 0.25 0.25 0.125 0.125 ini ini]*(1-saveh), 0.011+savev/2+[0.125 0.125 0.25 0.25 0.375 0.375 1 1 0.375 0.375 0.25 0.25 0.125]*(1-savev),[226.6667 255 226.6667]/255,'LineStyle','none');
+pc=patch(0.013+saveh/2+[ini fin fin 0.375 0.375 0.125 0.125 ini ini]*(1-saveh), 0.011+savev/2+[0 0 0.375 0.375 0.25 0.25 0.125 0.125 0]*(1-savev),[242.2222 214.4444 246.6667]/255,'LineStyle','none');
 uistack(new,'bottom');
 
 %% Export and fix
-print('-depsc','-loose','data3');
-print('-dpdf','-loose','data3');
+print('-depsc','-loose','data2');
+print('-dpdf','-loose','data2');

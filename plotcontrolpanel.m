@@ -1,11 +1,12 @@
-function [ax1,h1,h4,h5] = plotcontrollog( maindir,ctldir,cthdir,desc,lw1,lw2 )
-%PLOTEXP Summary of this function goes here
+function [ax1,h1,h4,h5] = plotcontrolpanel( maindir,ctldir,cthdir)
+%PLOTCONTROLPANEL Plot a pannel (a single parameter combination) of a
+%standard control (enforcing low and high mutation rates)
 %   Detailed explanation goes here
 
+scaling=3;
+lw2=0.6*scaling;
 
 C=[0.169 0.294 0.435]*10/9;
-HDC=[0.176 0.533 0.176]*10/9;
-HCD=[0.667 0.224 0.224]*10/9;
 ctH=[0 0.7 0.7];
 ctL=[0.5 0 0.7];
 
@@ -20,7 +21,7 @@ mainfile(numel(mainfile))='';
 ctlfile(numel(ctlfile))='';
 cthfile(numel(cthfile))='';
 
-[nbcoop,nb2coop,nb2d,stdcoop,std2coop,std2d,nbctl,stdctl,nbcth,stdcth,~,~,~,~] = computefromexp( mainfile, ctlfile, cthfile );
+[nbcoop,~,~,stdcoop,~,~,nbctl,stdctl,nbcth,stdcth,~,~,~,~] = computefromexp( mainfile, ctlfile, cthfile );
 
 
 %% Pure cooperators
@@ -59,9 +60,6 @@ end
 
 xlim(gca,[0.4 3.6]);
 set(gca,'Xtick',[]);
-if ~strcmp(desc,'')
-    title(desc);
-end
 hold off;
 end
 

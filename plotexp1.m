@@ -38,42 +38,31 @@ for m=listem
         nc=nc+1;
         desc=['c = ' num2str(c) ', m = ' num2str(m)];
         d1=['~/data/evomut/exp1/c' num2str(c) 'mexp' num2str(m)];
-        d2=['~/data/evomut/exp1_ctl/c' num2str(c) 'mexp' num2str(m)];
-        d3=['~/data/evomut/exp1_cth/c' num2str(c) 'mexp' num2str(m)];
         left=saveh+(nc*(1-saveh-hright)-1)/numel(listec)+hblank/2;
         bottom=savev+(nm*(1-savev)-1)/numel(listem)+vblank/2;
         width=(1-saveh-hright)/numel(listec)-hblank;
         height=(1-savev)/numel(listem)-vblank;
         subplot('Position',[left bottom width height]);
-        [ax1,h1,h2,h3,nbcoop,nb2coop]=nologplotexp(d1,d2,d3,'',lw1,lw2);
+        [ax1,h1,h2,h3,nbcoop,nb2coop]=plotexppanel(d1);
         nbc(nm,nc)=nbcoop;
         nb2c(nm,nc)=nb2coop;
         if c==min(listec)
             set(ax1,'YAxisLocation','left');
-            set(ax1,'color','none');
-            set(ax1,'TickLength',[0.03 0.03]);
-            set(ax1,'LineWidth',lw1);
-            set(ax1,'Box','off');
             set(ax1,'YTick',[0 1]);
             set(ax1,'YMinorTick','on');
         elseif c==max(listec)
             set(ax1,'YAxisLocation','right');
-            set(ax1,'color','none');
-            set(ax1,'TickLength',[0.03 0.03]);
-            set(ax1,'LineWidth',lw1);
-            set(ax1,'Box','off');
             set(ax1,'YTick',[0 1]);
             set(ax1,'YMinorTick','on');
         else
-            %set(ax1,'XColor',[0 0 0]);
             set(ax1,'YColor','none');
-            set(ax1,'color','none');
             set(ax1,'YTick',[]);
-            set(ax1,'Box','off');
-            set(ax1,'LineWidth',lw1);
         end
-        %set(ax1,'Box','off');
+        set(ax1,'Box','off');
         set(ax1,'FontSize',fs1);
+        set(ax1,'LineWidth',lw1);
+        set(ax1,'TickLength',[0.03 0.03]);
+        set(ax1,'color','none');
     end
 end
 z=(nbc<5000) & (nb2c>5000);
@@ -106,10 +95,6 @@ set(new, 'Xlim',[0 1]);
 set(new, 'Ylim',[0 1]);
 set(new,'Visible','off');
 
-%% Print parameter name
-%text(0.35,0,'Cooperation cost (c)','FontSize',fs3);
-%text(-0.01,0.40,'Selection pressure (m)','FontSize',fs3,'rotation',90);
-
 %% Make figure bigger for export
 set(gcf,'PaperUnits','centimeters');
 set(gcf,'PaperSize',[8.7 8.7]*scaling);
@@ -133,5 +118,5 @@ pc=patch(0.013+saveh/2+[ini fin fin 0.875 0.875 0.375 0.375 0.125 0.125 ini ini]
 uistack(new,'bottom');
 
 %% Export and fix
-print('-depsc','-loose','data1');
+%print('-depsc','-loose','data1');
 print('-dpdf','-loose','data1');

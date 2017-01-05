@@ -1,34 +1,37 @@
-function [nbcoop,nb2coop,nb2d,stdcoop,std2coop,std2d,nbctl,stdctl,nbcth,stdcth,m1,m2,s1,s2] = computefromexp( mainfile, ctlfile, cthfile )
+function [nbcoop,nb2coop,nb2d,stdcoop,std2coop,std2d,nbctl,stdctl,nbcth,stdcth,m1,m2,s1,s2] = computefromexp( mainfile, varargin)
 %COMPUTEFROMEXP compute measures of interest from simulation mat file +
 %controls
 
 a=load(mainfile);
-b=load(ctlfile);
-c=load(cthfile);
-
 v1=mean(a.secretion_nb(:,1500:2000),2);
 nbcoop=mean(v1);
 stdcoop=std(v1);
-
 v2=mean(a.mutators_dc_nb(:,1500:2000),2);
 nb2coop=mean(v2);
 std2coop=std(v2);
-
-v3=mean(b.secretion_nb(:,1500:2000),2);
-nbctl=mean(v3);
-stdctl=std(v3);
-
-v4=mean(c.secretion_nb(:,1500:2000),2);
-nbcth=mean(v4);
-stdcth=std(v4);
-
-if isfield(a,'mutators_cd_nb')
-    v5=mean(a.mutators_cd_nb(:,1500:2000),2);
-else
-    v5=v2;
-end
+v5=mean(a.mutators_cd_nb(:,1500:2000),2);
 nb2d=mean(v5);
 std2d=std(v5);
+
+if length(varargin)==2
+    ctlfile=varargin{1};
+    cthfile =varargin{2};
+
+    b=load(ctlfile);
+    v3=mean(b.secretion_nb(:,1500:2000),2);
+    nbctl=mean(v3);
+    stdctl=std(v3);
+
+    c=load(cthfile);
+    v4=mean(c.secretion_nb(:,1500:2000),2);
+    nbcth=mean(v4);
+    stdcth=std(v4);
+else
+    nbctl=nan;
+    stdctl=nan;
+    nbcth=nan;
+    stdcth=nan;
+end
 
 %[mm1,mm2]=regression(mainfile);
 %m1=mean(mm1);
