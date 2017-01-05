@@ -47,22 +47,13 @@ for m=listem
         nbc(nm,nc)=nbcoop;
         nb2c(nm,nc)=nb2coop;
         if c==min(listec)
-            set(ax1,'YAxisLocation','left');
-            set(ax1,'YTick',[0 1]);
-            set(ax1,'YMinorTick','on');
+            set(ax1,'YAxisLocation','left','YTick',[0 1],'YMinorTick','on');
         elseif c==max(listec)
-            set(ax1,'YAxisLocation','right');
-            set(ax1,'YTick',[0 1]);
-            set(ax1,'YMinorTick','on');
+            set(ax1,'YAxisLocation','right','YTick',[0 1],'YMinorTick','on');
         else
-            set(ax1,'YColor','none');
-            set(ax1,'YTick',[]);
+            set(ax1,'YColor','none','YTick',[]);
         end
-        set(ax1,'Box','off');
-        set(ax1,'FontSize',fs1);
-        set(ax1,'LineWidth',lw1);
-        set(ax1,'TickLength',[0.03 0.03]);
-        set(ax1,'color','none');
+        set(ax1,'Box','off','FontSize',fs1,'LineWidth',lw1,'TickLength',[0.03 0.03],'color','none');
     end
 end
 z=(nbc<5000) & (nb2c>5000);
@@ -88,18 +79,10 @@ end
 
 %% Create axes for labels and parameter names
 new=axes('Position',[0.015 0.025 1-hright 1]);
-set(new, 'color', 'none');
-set(new, 'XTick',[]);
-set(new, 'YTick',[]);
-set(new, 'Xlim',[0 1]);
-set(new, 'Ylim',[0 1]);
-set(new,'Visible','off');
+set(new, 'color','none', 'XTick',[], 'YTick',[], 'Xlim',[0 1], 'Ylim',[0 1],'Visible','off');
 
 %% Make figure bigger for export
-set(gcf,'PaperUnits','centimeters');
-set(gcf,'PaperSize',[8.7 8.7]*scaling);
-set(gcf,'PaperPosition',[0 0.1 8.7*scaling 8.7*scaling]);
-set(gcf,'PaperPositionMode', 'manual');
+set(gcf,'PaperUnits','centimeters','PaperSize',[8.7 8.7]*scaling,'PaperPosition',[0 0.1 8.7*scaling 8.7*scaling],'PaperPositionMode','manual');
 
 %% Add a global legend on bottom
 hl=legend([h1 h2 h3],{'C/D: fraction of C','H_{DC}/L_{DC}: fraction of H_{DC}','H_{CD}/L_{CD}: fraction of H_{CD}'},'FontSize',fs2,'Orientation','horizontal','Box','off');
@@ -118,5 +101,5 @@ pc=patch(0.013+saveh/2+[ini fin fin 0.875 0.875 0.375 0.375 0.125 0.125 ini ini]
 uistack(new,'bottom');
 
 %% Export and fix
-%print('-depsc','-loose','data1');
+print('-depsc','-loose','data1');
 print('-dpdf','-loose','data1');
