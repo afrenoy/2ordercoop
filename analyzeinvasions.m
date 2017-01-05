@@ -1,5 +1,5 @@
 % Second measure: Biggest number of offsprings of the invader (among all generations)
-ylab='Invasion';
+ylab='Invasion success';
 
 %% Exp1 m=1
 
@@ -20,13 +20,24 @@ pc=prctile([adrift;bdrift;cdrift;ddrift],[5 95]);
 % Graph
 figure();
 hb=bar([mean(a) mean(b); mean(c) mean(d)]/400);
-patch([0.5 0.5 2.5 2.5],[pc(1) pc(2) pc(2) pc(1)]/400,[0.1 0.1 0.1],'FaceAlpha',0.3,'LineStyle','none');
+sea=std(a)/sqrt(numel(a));
+seb=std(b)/sqrt(numel(b));
+sec=std(c)/sqrt(numel(c));
+sed=std(d)/sqrt(numel(d));
+line([0.865 0.865],[mean(a)/400-sea/400 mean(a)/400+sea/400],'LineWidth',2.5,'color','k');
+line([1.135 1.135],[mean(b)/400-seb/400 mean(b)/400+seb/400],'LineWidth',2.5,'color','k');
+line([1.865 1.865],[mean(c)/400-sec/400 mean(c)/400+sec/400],'LineWidth',2.5,'color','k');
+line([2.135 2.135],[mean(d)/400-sed/400 mean(d)/400+sed/400],'LineWidth',2.5,'color','k');
 hl=line([0.5 2.5],[mean(alldrift) mean(alldrift)]/400,'LineWidth',2,'Color','k');
-line([0.5 2.5],[pc(1) pc(1)]/400,'LineWidth',2,'Color','k','LineStyle','--');
-line([0.5 2.5],[pc(2) pc(2)]/400,'LineWidth',2,'Color','k','LineStyle','--');
+
+% Stats
+[h1,p1]=ttest2(a,b,'Vartype','unequal');
+[h2,p2]=ttest2(c,d,'Vartype','unequal');
+text(1,max(mean(a),mean(b))/400*1.2,'***','FontSize',20,'HorizontalAlignment','center');
+text(2,max(mean(c),mean(d))/400*1.2,'***','FontSize',20,'HorizontalAlignment','center');
 
 set(gca,'XTickLabel',{'structured','mixed'},'FontSize',20,'TickLength',[0 0]);
-legend([hb hl],{'invasion by L_{DC}','invasion by H_{DC}','Genetic drift'},'Location','NorthWest','Box','off');
+legend([hb hl],{'rare L_{DC}','rare H_{DC}','Genetic drift'},'Location','NorthWest','Box','off');
 ylabel(ylab);
 title('H=0.01   c=0.9   m=1');
 colormap(gca,lines(5));
@@ -54,13 +65,23 @@ pc=prctile([adrift;bdrift;cdrift;ddrift],[5 95]);
 % Graph
 figure();
 bar([mean(a) mean(b); mean(c) mean(d)]/400);
-patch([0.5 0.5 2.5 2.5],[pc(1) pc(2) pc(2) pc(1)]/400,[0.1 0.1 0.1],'FaceAlpha',0.3,'LineStyle','none');
+sea=std(a)/sqrt(numel(a));
+seb=std(b)/sqrt(numel(b));
+sec=std(c)/sqrt(numel(c));
+sed=std(d)/sqrt(numel(d));
+line([0.865 0.865],[mean(a)/400-sea/400 mean(a)/400+sea/400],'LineWidth',2.5,'color','k');
+line([1.135 1.135],[mean(b)/400-seb/400 mean(b)/400+seb/400],'LineWidth',2.5,'color','k');
+line([1.865 1.865],[mean(c)/400-sec/400 mean(c)/400+sec/400],'LineWidth',2.5,'color','k');
+line([2.135 2.135],[mean(d)/400-sed/400 mean(d)/400+sed/400],'LineWidth',2.5,'color','k');
 line([0.5 2.5],[mean(alldrift) mean(alldrift)]/400,'LineWidth',2,'Color','k');
-line([0.5 2.5],[pc(1) pc(1)]/400,'LineWidth',2,'Color','k','LineStyle','--');
-line([0.5 2.5],[pc(2) pc(2)]/400,'LineWidth',2,'Color','k','LineStyle','--');
+
+% Stats
+[h1,p1]=ttest2(a,b,'Vartype','unequal');
+[h2,p2]=ttest2(c,d,'Vartype','unequal');
+text(1,max(mean(a),mean(b))/400*1.2,'**','FontSize',20,'HorizontalAlignment','center');
+%text(2,max(mean(c),mean(d))/400*1.2,'ns','FontSize',20,'HorizontalAlignment','center');
 
 set(gca,'XTickLabel',{'structured','mixed'},'FontSize',20,'TickLength',[0 0],'YAxisLocation','right','YTick',[]);
-%legend({'invasion of L_{DC}','invasion of H_{DC}'},'Location','North');
 %ylabel(ylab);
 title('H=0.01   c=0.9   m=100');
 colormap(gca,lines(5));
@@ -88,13 +109,23 @@ pc=prctile([adrift;bdrift;cdrift;ddrift],[5 95]);
 % Graph
 figure();
 bar([mean(a) mean(b); mean(c) mean(d)]/400);
-patch([0.5 0.5 2.5 2.5],[pc(1) pc(2) pc(2) pc(1)]/400,[0.1 0.1 0.1],'FaceAlpha',0.3,'LineStyle','none');
+sea=std(a)/sqrt(numel(a));
+seb=std(b)/sqrt(numel(b));
+sec=std(c)/sqrt(numel(c));
+sed=std(d)/sqrt(numel(d));
+line([0.865 0.865],[mean(a)/400-sea/400 mean(a)/400+sea/400],'LineWidth',2.5,'color','k');
+line([1.135 1.135],[mean(b)/400-seb/400 mean(b)/400+seb/400],'LineWidth',2.5,'color','k');
+line([1.865 1.865],[mean(c)/400-sec/400 mean(c)/400+sec/400],'LineWidth',2.5,'color','k');
+line([2.135 2.135],[mean(d)/400-sed/400 mean(d)/400+sed/400],'LineWidth',2.5,'color','k');
 line([0.5 2.5],[mean(alldrift) mean(alldrift)]/400,'LineWidth',2,'Color','k');
-line([0.5 2.5],[pc(1) pc(1)]/400,'LineWidth',2,'Color','k','LineStyle','--');
-line([0.5 2.5],[pc(2) pc(2)]/400,'LineWidth',2,'Color','k','LineStyle','--');
+
+% Stats
+[h1,p1]=ttest2(a,b,'Vartype','unequal');
+[h2,p2]=ttest2(c,d,'Vartype','unequal');
+text(1,max(mean(a),mean(b))/400*1.1,'***','FontSize',20,'HorizontalAlignment','center');
+text(2,max(mean(c),mean(d))/400*1.1,'***','FontSize',20,'HorizontalAlignment','center');
 
 set(gca,'XTickLabel',{'structured','mixed'},'FontSize',20,'TickLength',[0 0]);
-%legend({'invasion of L_{DC}','invasion of H_{DC}'},'Location','North');
 ylabel(ylab);
 title('H=0.1   c=0.9   m=1');
 colormap(gca,lines(5));
@@ -122,13 +153,23 @@ pc=prctile([adrift;bdrift;cdrift;ddrift],[5 95]);
 % Graph
 figure();
 bar([mean(a) mean(b); mean(c) mean(d)]/400);
-patch([0.5 0.5 2.5 2.5],[pc(1) pc(2) pc(2) pc(1)]/400,[0.1 0.1 0.1],'FaceAlpha',0.3,'LineStyle','none');
+sea=std(a)/sqrt(numel(a));
+seb=std(b)/sqrt(numel(b));
+sec=std(c)/sqrt(numel(c));
+sed=std(d)/sqrt(numel(d));
+line([0.865 0.865],[mean(a)/400-sea/400 mean(a)/400+sea/400],'LineWidth',2.5,'color','k');
+line([1.135 1.135],[mean(b)/400-seb/400 mean(b)/400+seb/400],'LineWidth',2.5,'color','k');
+line([1.865 1.865],[mean(c)/400-sec/400 mean(c)/400+sec/400],'LineWidth',2.5,'color','k');
+line([2.135 2.135],[mean(d)/400-sed/400 mean(d)/400+sed/400],'LineWidth',2.5,'color','k');
 line([0.5 2.5],[mean(alldrift) mean(alldrift)]/400,'LineWidth',2,'Color','k');
-line([0.5 2.5],[pc(1) pc(1)]/400,'LineWidth',2,'Color','k','LineStyle','--');
-line([0.5 2.5],[pc(2) pc(2)]/400,'LineWidth',2,'Color','k','LineStyle','--');
+
+% Stats
+[h1,p1]=ttest2(a,b,'Vartype','unequal');
+[h2,p2]=ttest2(c,d,'Vartype','unequal');
+text(1,max(mean(a),mean(b))/400*1.2,'*','FontSize',20,'HorizontalAlignment','center');
+%text(2,max(mean(c),mean(d))/400*1.2,'ns','FontSize',20,'HorizontalAlignment','center');
 
 set(gca,'XTickLabel',{'structured','mixed'},'FontSize',20,'TickLength',[0 0],'YAxisLocation','right','YTick',[]);
-%legend({'invasion of L_{DC}','invasion of H_{DC}'},'Location','North');
 %ylabel(ylab);
 title('H=0.1   c=0.9   m=100');
 colormap(gca,lines(5));
@@ -157,13 +198,23 @@ pc=prctile([adrift;bdrift;cdrift;ddrift],[5 95]);
 % Graph
 figure();
 bar([mean(a) mean(b); mean(c) mean(d)]/400);
-patch([0.5 0.5 2.5 2.5],[pc(1) pc(2) pc(2) pc(1)]/400,[0.1 0.1 0.1],'FaceAlpha',0.3,'LineStyle','none');
+sea=std(a)/sqrt(numel(a));
+seb=std(b)/sqrt(numel(b));
+sec=std(c)/sqrt(numel(c));
+sed=std(d)/sqrt(numel(d));
+line([0.865 0.865],[mean(a)/400-sea/400 mean(a)/400+sea/400],'LineWidth',2.5,'color','k');
+line([1.135 1.135],[mean(b)/400-seb/400 mean(b)/400+seb/400],'LineWidth',2.5,'color','k');
+line([1.865 1.865],[mean(c)/400-sec/400 mean(c)/400+sec/400],'LineWidth',2.5,'color','k');
+line([2.135 2.135],[mean(d)/400-sed/400 mean(d)/400+sed/400],'LineWidth',2.5,'color','k');
 line([0.5 2.5],[mean(alldrift) mean(alldrift)]/400,'LineWidth',2,'Color','k');
-line([0.5 2.5],[pc(1) pc(1)]/400,'LineWidth',2,'Color','k','LineStyle','--');
-line([0.5 2.5],[pc(2) pc(2)]/400,'LineWidth',2,'Color','k','LineStyle','--');
+
+% Stats
+[h1,p1]=ttest2(a,b,'Vartype','unequal');
+[h2,p2]=ttest2(c,d,'Vartype','unequal');
+text(1,max(mean(a),mean(b))/400*1.1,'***','FontSize',20,'HorizontalAlignment','center');
+text(2,max(mean(c),mean(d))/400*1.1,'***','FontSize',20,'HorizontalAlignment','center');
 
 set(gca,'XTickLabel',{'structured','mixed'},'FontSize',20,'TickLength',[0 0]);
-%legend({'invasion of L_{DC}','invasion of H_{DC}'},'Location','North');
 ylabel(ylab);
 title('H=0.5   c=0.9   m=1');
 colormap(gca,lines(5));
@@ -191,13 +242,23 @@ pc=prctile([adrift;bdrift;cdrift;ddrift],[5 95]);
 % Graph
 figure();
 bar([mean(a) mean(b); mean(c) mean(d)]/400);
-patch([0.5 0.5 2.5 2.5],[pc(1) pc(2) pc(2) pc(1)]/400,[0.1 0.1 0.1],'FaceAlpha',0.3,'LineStyle','none');
+sea=std(a)/sqrt(numel(a));
+seb=std(b)/sqrt(numel(b));
+sec=std(c)/sqrt(numel(c));
+sed=std(d)/sqrt(numel(d));
+line([0.865 0.865],[mean(a)/400-sea/400 mean(a)/400+sea/400],'LineWidth',2.5,'color','k');
+line([1.135 1.135],[mean(b)/400-seb/400 mean(b)/400+seb/400],'LineWidth',2.5,'color','k');
+line([1.865 1.865],[mean(c)/400-sec/400 mean(c)/400+sec/400],'LineWidth',2.5,'color','k');
+line([2.135 2.135],[mean(d)/400-sed/400 mean(d)/400+sed/400],'LineWidth',2.5,'color','k');
 line([0.5 2.5],[mean(alldrift) mean(alldrift)]/400,'LineWidth',2,'Color','k');
-line([0.5 2.5],[pc(1) pc(1)]/400,'LineWidth',2,'Color','k','LineStyle','--');
-line([0.5 2.5],[pc(2) pc(2)]/400,'LineWidth',2,'Color','k','LineStyle','--');
+
+% Stats
+[h1,p1]=ttest2(a,b,'Vartype','unequal');
+[h2,p2]=ttest2(c,d,'Vartype','unequal');
+text(1,max(mean(a),mean(b))/400*1.2,'*','FontSize',20,'HorizontalAlignment','center');
+text(2,max(mean(c),mean(d))/400*1.1,'***','FontSize',20,'HorizontalAlignment','center');
 
 set(gca,'XTickLabel',{'structured','mixed'},'FontSize',20,'TickLength',[0 0],'YAxisLocation','right','YTick',[]);
-%legend({'invasion of L_{DC}','invasion of H_{DC}'},'Location','North');
 %ylabel(ylab);
 title('H=0.5   c=0.9   m=100');
 colormap(gca,lines(5));
