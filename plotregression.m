@@ -1,53 +1,23 @@
+function [] = plotregression(datafile)
+%PLOTREGRESSION produces a relatedness plot from an experiment with precomputations (type figure 3)
+
 %% Global parameters
-scaling=3;
-fs1=6*scaling;
-fs2=6*scaling;
-fs3=8*scaling;
-lw1=0.3*scaling; % Edges of bar graphs, axes, ...
-lw2=0.6*scaling; % Error bars
-colorb1=[216.6667 230.0000 246.6667]/255;
-colorb2=[226.6667 255 226.6667]/255;
-colorb3=[242.2222 214.4444 246.6667]/255;
-
-%% Initialize variables
-listem=[1 2 5 10 20 50 100 200];
-listec=[0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9];
-values=cell(numel(listem),numel(listec));
-
+load('graphicparamsv1');
 color1=[0.176 0.533 0.176]*10/9;
 color2=[0.667 0.224 0.224]*10/9;
-
-%% Produce the data (needs a few hours)
-%{
-nm=0;
-for m=listem
-    nc=0;
-    nm=nm+1;
-    for c=listec
-        nc=nc+1;
-        d1=['~/data/evomut/exp1/c' num2str(c) 'mexp' num2str(m)];
-        mainfile=ls([d1 '/*.mat']);
-        mainfile(numel(mainfile))='';
-        [mm1,mm2]=regression(mainfile);
-        values{nm,nc}=[mm1,mm2];
-    end
-end
-
-save('~/data/evomut/exp1.mat','values');
-%}
-
-%% Draw a subplot for each parameter combination
-load('~/data/evomut/exp1.mat')
-
-n=0;
-
 hblank=0.03; % What horizontal space to leave between two subplots
-vblank=0.015; % What vertical space to leave between two subplots
-
 saveh=0.07; % What horizontal space to leave at the left of the figure for 'global' labels
 savev=0.1; % What vertical space to leave at the bottom of the figure for 'global' labels
-savehr=0.03;
 
+
+%% Draw a subplot for each parameter combination
+n=0;
+
+listem=[1 2 5 10 20 50 100 200];
+listec=[0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9];
+
+values=cell(numel(listem),numel(listec));
+load(datafile) % contains 'values'
 
 nm=0;
 for m=listem
@@ -98,14 +68,14 @@ for m=listem
         end
 
         % P-values
-        [h,p]=ttest(mm1,mm2,'tail','right');rp(nm,nc)=p;
+        [~,p]=ttest(mm1,mm2,'tail','right');
+        %rp(nm,nc)=p;
         if p<0.0001
             text(0.4,0.8,'***','Unit','normalized','FontSize',fs1);
         end
         
         % Error bars
         col=[0 0 0];
-        lw=2;
         line([1 1],[m1-s1 m1+s1],'Color',col,'LineWidth',lw2);
         line([2 2],[m2-s2 m2+s2],'Color',col,'LineWidth',lw2);
         
@@ -150,27 +120,12 @@ set(gcf,'PaperPositionMode', 'manual');
 
 %% Add a global legend on bottom
 hl=legend([h1 h2],{'Proximity of (D, *, H_{DC}) with (C, *, *)      m','Proximity of (D, *, L_{DC}) with (C, *, *)'},'FontSize',fs2,'Orientation','horizontal','Box','off');
-% Legend
-%hl=legend([h1 h4 h5],{'C allele when evolving mutation rates','C allele when enforcing low mutation rate','C allele when enforcing high mutation rate'},'FontSize',20,'Orientation','horizontal','Box','off');
-%hl=legend([h1 h2 h3],{'Cooperation loci: proportion of allele C','D\rightarrow C rate loci: proportion of allele H','C\rightarrow D rate loci: proportion of allele H'},'FontSize',20,'Orientation','horizontal','Box','off');
 pl=get(hl,'Position');
 pl(1)=0.1;
 pl(2)=-0.015;
 pl(3)=0.8;
 set(hl,'Position',pl)
 
-%% Draw parameter zones
-%ini=-0.004;
-ini=-0.035;
-%fin=1.02;
-fin=1.03;
-
-pa=patch(0.01+saveh/2+[ini 0.125 0.125 0.25 0.25 0.375 0.375 0.25 0.25 ini ini]*(1-saveh-savehr), 0.01+savev/2+[0.25 0.25 0.375 0.375 0.5 0.5 0.75 0.75 1 1 0.25]*(1-savev),colorb1,'LineStyle','none');
-pb=patch(0.01+saveh/2+[ini 0.125 0.125 0.375 0.375 0.875 0.875 fin fin 0.25 0.25 0.375 0.375 0.25 0.25 0.125 0.125 ini ini]*(1-saveh-savehr), 0.01+savev/2+[0.125 0.125 0.25 0.25 0.375 0.375 0.5 0.5 1 1 0.75 0.75 0.5 0.5 0.375 0.375 0.25 0.25 0.125]*(1-savev),colorb2,'LineStyle','none');
-pc=patch(0.01+saveh/2+[ini fin fin 0.875 0.875 0.375 0.375 0.125 0.125 ini ini]*(1-saveh-savehr), 0.01+savev/2+[0 0 0.5 0.5 0.375 0.375 0.25 0.25 0.125 0.125 0]*(1-savev),colorb3,'LineStyle','none');
 uistack(new,'bottom');
 
-%% Export and fix
-%print('-depsc','-loose','data1assort');
-print('-dpdf','-loose','data1assort');
-clf;
+end
