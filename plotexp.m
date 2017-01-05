@@ -2,18 +2,9 @@ function [] = plotexp(datadir)
 %PLOTEXP produces a standard multipanel plot from an experiment (type figure 1)
 
 %% Global parameters
-scaling=3;
-fs1=6*scaling;
-fs2=6*scaling;
-fs3=8*scaling;
-lw1=0.3*scaling; % Edges of bar graphs, axes, ...
-lw2=0.6*scaling; % Error bars
-
-hblank=0.015; % What horizontal space to leave between two subplots
-vblank=0.015; % What vertical space to leave between two subplots
-saveh=0.07; % What horizontal space to leave at the left of the figure for 'global' labels
-savev=0.1; % What vertical space to leave at the bottom of the figure for 'global' labels
-hright=0.01; % What horizontal space to leave at the right of the figure
+load('graphicparamsv1');
+saveh=0.07;
+savev=0.1;
 
 %% Draw a subplot for each parameter combination
 

@@ -1,13 +1,11 @@
 %PLOTEXP1 produces figure 1 (exp1, mutation rate between 0.001 and 0.01)
 
 %% Global parameters
-colorb1=[216.6667 230.0000 246.6667]/255; % Colors of the borders between parameter zones
-colorb2=[226.6667 255 226.6667]/255;
-colorb3=[242.2222 214.4444 246.6667]/255;
-saveh=0.07; % What horizontal space to leave at the left of the figure for 'global' labels
-savev=0.1; % What vertical space to leave at the bottom of the figure for 'global' labels
+load('graphicparamsv1');
 ini=-0.017;
 fin=1.011;
+saveh=0.07;
+savev=0.1;
 
 %% Main plot
 plotexp('~/data/evomut/exp1');

@@ -4,13 +4,7 @@ function [ax1,h1,h2,h3,nbcoop,nb2coop] = plotexppanel( maindir)
 %   Detailed explanation goes here
 
 %% Parameters
-scaling=3;
-lw1=0.3*scaling;
-lw2=0.6*scaling;
-
-C=[0.169 0.294 0.435]*10/9;
-HDC=[0.176 0.533 0.176]*10/9;
-HCD=[0.667 0.224 0.224]*10/9;
+load('graphicparamsv1');
 
 %% Computing data
 n=10000;
