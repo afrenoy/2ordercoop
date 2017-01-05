@@ -9,7 +9,11 @@ stdcoop=std(v1);
 v2=mean(a.mutators_dc_nb(:,1500:2000),2);
 nb2coop=mean(v2);
 std2coop=std(v2);
-v5=mean(a.mutators_cd_nb(:,1500:2000),2);
+if isfield(a,'mutators_cd_nb') % This variable does not exist for a 'phenotypic switch' simulation
+    v5=mean(a.mutators_cd_nb(:,1500:2000),2);
+else
+    v5=v2;
+end
 nb2d=mean(v5);
 std2d=std(v5);
 
