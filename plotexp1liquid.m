@@ -1,4 +1,4 @@
-%PLOTEXP1LIQUID produces control for exp 1 liquid
+%PLOTEXP1LIQUID produces S1 (exp 1 when mixed/liquid population)
 
 %% Global parameters
 load('graphicparamsv1');
@@ -15,6 +15,6 @@ pa=patch(0.013+saveh/2+[ini 0.125 0.125 0.25 0.25 0.375 0.375 0.25 0.25 ini ini]
 pb=patch(0.013+saveh/2+[ini 0.125 0.125 0.375 0.375 0.875 0.875 fin fin 0.25 0.25 0.375 0.375 0.25 0.25 0.125 0.125 ini ini]*(1-saveh), 0.011+savev/2+[0.125 0.125 0.25 0.25 0.375 0.375 0.5 0.5 1 1 0.75 0.75 0.5 0.5 0.375 0.375 0.25 0.25 0.125]*(1-savev),colorb2,'LineStyle','none');
 pc=patch(0.013+saveh/2+[ini fin fin 0.875 0.875 0.375 0.375 0.125 0.125 ini ini]*(1-saveh), 0.011+savev/2+[0 0 0.5 0.5 0.375 0.375 0.25 0.25 0.125 0.125 0]*(1-savev),colorb3,'LineStyle','none');
 
-%% Export and fix
-print('-depsc','-loose','liquid1');
-print('-dpdf','-loose','liquid1');
+%% Export
+print('-dpdf','-loose','data1liquid');
+close();

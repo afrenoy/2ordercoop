@@ -1,4 +1,4 @@
-%PLOTEXP3 produces figure S2 (exp3, mutation rate between 0.001 and 0.5)
+%PLOTEXP3 produces figure S5 (exp3, mutation rate between 0.001 and 0.5)
 
 %% Global parameters
 load('graphicparamsv1');
@@ -16,5 +16,5 @@ pb=patch(0.013+saveh/2+[ini 0.125 0.125 0.75 0.75 fin fin 0.125 0.125 ini ini]*(
 pc=patch(0.013+saveh/2+[ini fin fin 0.75 0.75 0.125 0.125 ini ini]*(1-saveh), 0.011+savev/2+[0 0 0.5 0.5 0.375 0.375 0.25 0.25 0]*(1-savev),[242.2222 214.4444 246.6667]/255,'LineStyle','none');
 
 %% Export
-print('-depsc','-loose','data3');
 print('-dpdf','-loose','data3');
+close();

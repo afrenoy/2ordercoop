@@ -1,4 +1,4 @@
-%PLOTEXP1PHENOTYPIC produces figure S3 (exp1 with phenotypic switch, mutation rate between 0.001 and 0.01)
+%PLOTEXP1PHENOTYPIC produces figure S3 (exp1 with phenotypic switch)
 
 %% Global parameters
 load('graphicparamsv1');
@@ -16,4 +16,5 @@ pb=patch(0.013+saveh/2+[ini 0.125 0.125 0.375 0.375 0.875 0.875 fin fin 0.25 0.2
 pc=patch(0.013+saveh/2+[ini fin fin 0.875 0.875 0.375 0.375 0.125 0.125 ini ini]*(1-saveh), 0.011+savev/2+[0 0 0.5 0.5 0.375 0.375 0.25 0.25 0.125 0.125 0]*(1-savev),colorb3,'LineStyle','none');
 
 %% Export
-print('-dpdf','-loose','phenotypic1');
+print('-dpdf','-loose','data1phenotypic');
+close();
