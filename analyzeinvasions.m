@@ -1,3 +1,5 @@
+%ANALYZEINVASIONS produces figures invasion1a-3b.pdf
+
 % Second measure: Biggest number of offsprings of the invader (among all generations)
 ylab='Invasion success';
 
