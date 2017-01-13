@@ -1,5 +1,5 @@
-function [] = plotregression(datafile)
-%PLOTREGRESSION produces a relatedness plot from an experiment with precomputations (type figure 3)
+function [] = plotrelatedness(datafile)
+%PLOTRELATEDNESS produces a relatedness plot from an experiment with precomputations (type figure 3)
 
 %% Global parameters
 load('graphicparamsv1');
