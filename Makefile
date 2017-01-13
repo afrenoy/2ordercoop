@@ -1,10 +1,14 @@
 dir := ${CURDIR}
 matlabcmd := /Applications/MATLAB_R2014b.app/bin/matlab -nodesktop -nodisplay 
 
-all: movies figures
+movies = movie1.mp4 movie1.webm
+figures = data1.pdf data2.pdf data3.pdf data1control.pdf data1relatedness.pdf data1liquid.pdf data1phenotypic.pdf data1sterile.pdf invasion1a.pdf invasion1b.pdf invasion2a.pdf invasion2b.pdf invasion3a.pdf invasion3b.pdf
 
-movies: movie1.mp4 movie1.webm
-figures: data1.pdf data2.pdf data3.pdf data1control.pdf data1relatedness.pdf data1liquid.pdf data1phenotypic.pdf data1sterile.pdf invasion1a.pdf invasion1b.pdf invasion2a.pdf invasion2b.pdf invasion3a.pdf invasion3b.pdf
+all: $(movies) $(figures)
+
+clean:
+	rm -f $(movies) $(figures) graphicparamsv1.mat
+	rm -rf movie-dump movie-png
 
 graphicparamsv1.mat:
 	$(matlabcmd) -r "path(path,'$(dir)/code_analysis'); graphicparams; exit"
