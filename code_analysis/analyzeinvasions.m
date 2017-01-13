@@ -1,3 +1,4 @@
+function [] = analyzeinvasions(dataroot)
 %ANALYZEINVASIONS produces figures invasion1a-3b.pdf
 
 % Second measure: Biggest number of offsprings of the invader (among all generations)
@@ -6,16 +7,16 @@ ylab='Invasion success';
 %% Exp1 m=1
 
 % Data
-e=load('~/data/evomut/invasion/exp1invasion_0/c0.9mexp1/res.mat'); a=400-min(e.mutators_dc_nb,[],2);
-e=load('~/data/evomut/invasion/exp1invasion_1/c0.9mexp1/res.mat'); b=max(e.mutators_dc_nb,[],2);
-e=load('~/data/evomut/invasion/exp1invasionl_0/c0.9mexp1/res.mat'); c=400-min(e.mutators_dc_nb,[],2);
-e=load('~/data/evomut/invasion/exp1invasionl_1/c0.9mexp1/res.mat'); d=max(e.mutators_dc_nb,[],2);
+e=load([dataroot '/exp1invasion_0/c0.9mexp1/res.mat']); a=400-min(e.mutators_dc_nb,[],2);
+e=load([dataroot '/exp1invasion_1/c0.9mexp1/res.mat']); b=max(e.mutators_dc_nb,[],2);
+e=load([dataroot '/exp1invasionl_0/c0.9mexp1/res.mat']); c=400-min(e.mutators_dc_nb,[],2);
+e=load([dataroot '/exp1invasionl_1/c0.9mexp1/res.mat']); d=max(e.mutators_dc_nb,[],2);
 
 % Neutral control
-e=load('~/data/evomut/invasion/exp1invasion_0_neutral/c0.9mexp1/res.mat'); adrift=400-min(e.mutators_dc_nb,[],2);
-e=load('~/data/evomut/invasion/exp1invasion_1_neutral/c0.9mexp1/res.mat'); bdrift=max(e.mutators_dc_nb,[],2);
-e=load('~/data/evomut/invasion/exp1invasionl_0_neutral/c0.9mexp1/res.mat'); cdrift=400-min(e.mutators_dc_nb,[],2);
-e=load('~/data/evomut/invasion/exp1invasionl_1_neutral/c0.9mexp1/res.mat'); ddrift=max(e.mutators_dc_nb,[],2);
+e=load([dataroot '/exp1invasion_0_neutral/c0.9mexp1/res.mat']); adrift=400-min(e.mutators_dc_nb,[],2);
+e=load([dataroot '/exp1invasion_1_neutral/c0.9mexp1/res.mat']); bdrift=max(e.mutators_dc_nb,[],2);
+e=load([dataroot '/exp1invasionl_0_neutral/c0.9mexp1/res.mat']); cdrift=400-min(e.mutators_dc_nb,[],2);
+e=load([dataroot '/exp1invasionl_1_neutral/c0.9mexp1/res.mat']); ddrift=max(e.mutators_dc_nb,[],2);
 alldrift=[adrift;bdrift;cdrift;ddrift];
 pc=prctile([adrift;bdrift;cdrift;ddrift],[5 95]);
 
@@ -51,16 +52,16 @@ close();
 %% Exp1 m=100
 
 % Data
-e=load('~/data/evomut/invasion/exp1invasion_0/c0.9mexp100/res.mat'); a=400-min(e.mutators_dc_nb,[],2);
-e=load('~/data/evomut/invasion/exp1invasion_1/c0.9mexp100/res.mat'); b=max(e.mutators_dc_nb,[],2);
-e=load('~/data/evomut/invasion/exp1invasionl_0/c0.9mexp100/res.mat'); c=400-min(e.mutators_dc_nb,[],2);
-e=load('~/data/evomut/invasion/exp1invasionl_1/c0.9mexp100/res.mat'); d=max(e.mutators_dc_nb,[],2);
+e=load([dataroot '/exp1invasion_0/c0.9mexp100/res.mat']); a=400-min(e.mutators_dc_nb,[],2);
+e=load([dataroot '/exp1invasion_1/c0.9mexp100/res.mat']); b=max(e.mutators_dc_nb,[],2);
+e=load([dataroot '/exp1invasionl_0/c0.9mexp100/res.mat']); c=400-min(e.mutators_dc_nb,[],2);
+e=load([dataroot '/exp1invasionl_1/c0.9mexp100/res.mat']); d=max(e.mutators_dc_nb,[],2);
 
 % Neutral control
-e=load('~/data/evomut/invasion/exp1invasion_0_neutral/c0.9mexp100/res.mat'); adrift=400-min(e.mutators_dc_nb,[],2);
-e=load('~/data/evomut/invasion/exp1invasion_1_neutral/c0.9mexp100/res.mat'); bdrift=max(e.mutators_dc_nb,[],2);
-e=load('~/data/evomut/invasion/exp1invasionl_0_neutral/c0.9mexp100/res.mat'); cdrift=400-min(e.mutators_dc_nb,[],2);
-e=load('~/data/evomut/invasion/exp1invasionl_1_neutral/c0.9mexp100/res.mat'); ddrift=max(e.mutators_dc_nb,[],2);
+e=load([dataroot '/exp1invasion_0_neutral/c0.9mexp100/res.mat']); adrift=400-min(e.mutators_dc_nb,[],2);
+e=load([dataroot '/exp1invasion_1_neutral/c0.9mexp100/res.mat']); bdrift=max(e.mutators_dc_nb,[],2);
+e=load([dataroot '/exp1invasionl_0_neutral/c0.9mexp100/res.mat']); cdrift=400-min(e.mutators_dc_nb,[],2);
+e=load([dataroot '/exp1invasionl_1_neutral/c0.9mexp100/res.mat']); ddrift=max(e.mutators_dc_nb,[],2);
 alldrift=[adrift;bdrift;cdrift;ddrift];
 pc=prctile([adrift;bdrift;cdrift;ddrift],[5 95]);
 
@@ -95,16 +96,16 @@ close();
 %% Exp2 m=1
 
 % Data
-e=load('~/data/evomut/invasion/exp2invasion_0/c0.9mexp1/res.mat'); a=400-min(e.mutators_dc_nb,[],2);
-e=load('~/data/evomut/invasion/exp2invasion_1/c0.9mexp1/res.mat'); b=max(e.mutators_dc_nb,[],2);
-e=load('~/data/evomut/invasion/exp2invasionl_0/c0.9mexp1/res.mat'); c=400-min(e.mutators_dc_nb,[],2);
-e=load('~/data/evomut/invasion/exp2invasionl_1/c0.9mexp1/res.mat'); d=max(e.mutators_dc_nb,[],2);
+e=load([dataroot '/exp2invasion_0/c0.9mexp1/res.mat']); a=400-min(e.mutators_dc_nb,[],2);
+e=load([dataroot '/exp2invasion_1/c0.9mexp1/res.mat']); b=max(e.mutators_dc_nb,[],2);
+e=load([dataroot '/exp2invasionl_0/c0.9mexp1/res.mat']); c=400-min(e.mutators_dc_nb,[],2);
+e=load([dataroot '/exp2invasionl_1/c0.9mexp1/res.mat']); d=max(e.mutators_dc_nb,[],2);
 
 % Neutral control
-e=load('~/data/evomut/invasion/exp2invasion_0_neutral/c0.9mexp1/res.mat'); adrift=400-min(e.mutators_dc_nb,[],2);
-e=load('~/data/evomut/invasion/exp2invasion_1_neutral/c0.9mexp1/res.mat'); bdrift=max(e.mutators_dc_nb,[],2);
-e=load('~/data/evomut/invasion/exp2invasionl_0_neutral/c0.9mexp1/res.mat'); cdrift=400-min(e.mutators_dc_nb,[],2);
-e=load('~/data/evomut/invasion/exp2invasionl_1_neutral/c0.9mexp1/res.mat'); ddrift=max(e.mutators_dc_nb,[],2);
+e=load([dataroot '/exp2invasion_0_neutral/c0.9mexp1/res.mat']); adrift=400-min(e.mutators_dc_nb,[],2);
+e=load([dataroot '/exp2invasion_1_neutral/c0.9mexp1/res.mat']); bdrift=max(e.mutators_dc_nb,[],2);
+e=load([dataroot '/exp2invasionl_0_neutral/c0.9mexp1/res.mat']); cdrift=400-min(e.mutators_dc_nb,[],2);
+e=load([dataroot '/exp2invasionl_1_neutral/c0.9mexp1/res.mat']); ddrift=max(e.mutators_dc_nb,[],2);
 alldrift=[adrift;bdrift;cdrift;ddrift];
 pc=prctile([adrift;bdrift;cdrift;ddrift],[5 95]);
 
@@ -139,16 +140,16 @@ close();
 %% Exp2 m=100
 
 % Data
-e=load('~/data/evomut/invasion/exp2invasion_0/c0.9mexp100/res.mat'); a=400-min(e.mutators_dc_nb,[],2);
-e=load('~/data/evomut/invasion/exp2invasion_1/c0.9mexp100/res.mat'); b=max(e.mutators_dc_nb,[],2);
-e=load('~/data/evomut/invasion/exp2invasionl_0/c0.9mexp100/res.mat'); c=400-min(e.mutators_dc_nb,[],2);
-e=load('~/data/evomut/invasion/exp2invasionl_1/c0.9mexp100/res.mat'); d=max(e.mutators_dc_nb,[],2);
+e=load([dataroot '/exp2invasion_0/c0.9mexp100/res.mat']); a=400-min(e.mutators_dc_nb,[],2);
+e=load([dataroot '/exp2invasion_1/c0.9mexp100/res.mat']); b=max(e.mutators_dc_nb,[],2);
+e=load([dataroot '/exp2invasionl_0/c0.9mexp100/res.mat']); c=400-min(e.mutators_dc_nb,[],2);
+e=load([dataroot '/exp2invasionl_1/c0.9mexp100/res.mat']); d=max(e.mutators_dc_nb,[],2);
 
 % Neutral control
-e=load('~/data/evomut/invasion/exp2invasion_0_neutral/c0.9mexp100/res.mat'); adrift=400-min(e.mutators_dc_nb,[],2);
-e=load('~/data/evomut/invasion/exp2invasion_1_neutral/c0.9mexp100/res.mat'); bdrift=max(e.mutators_dc_nb,[],2);
-e=load('~/data/evomut/invasion/exp2invasionl_0_neutral/c0.9mexp100/res.mat'); cdrift=400-min(e.mutators_dc_nb,[],2);
-e=load('~/data/evomut/invasion/exp2invasionl_1_neutral/c0.9mexp100/res.mat'); ddrift=max(e.mutators_dc_nb,[],2);
+e=load([dataroot '/exp2invasion_0_neutral/c0.9mexp100/res.mat']); adrift=400-min(e.mutators_dc_nb,[],2);
+e=load([dataroot '/exp2invasion_1_neutral/c0.9mexp100/res.mat']); bdrift=max(e.mutators_dc_nb,[],2);
+e=load([dataroot '/exp2invasionl_0_neutral/c0.9mexp100/res.mat']); cdrift=400-min(e.mutators_dc_nb,[],2);
+e=load([dataroot '/exp2invasionl_1_neutral/c0.9mexp100/res.mat']); ddrift=max(e.mutators_dc_nb,[],2);
 alldrift=[adrift;bdrift;cdrift;ddrift];
 pc=prctile([adrift;bdrift;cdrift;ddrift],[5 95]);
 
@@ -184,16 +185,16 @@ close();
 %% Exp3 m=1
 
 % Data
-e=load('~/data/evomut/invasion/exp3invasion_0/c0.9mexp1/res.mat'); a=400-min(e.mutators_dc_nb,[],2);
-e=load('~/data/evomut/invasion/exp3invasion_1/c0.9mexp1/res.mat'); b=max(e.mutators_dc_nb,[],2);
-e=load('~/data/evomut/invasion/exp3invasionl_0/c0.9mexp1/res.mat'); c=400-min(e.mutators_dc_nb,[],2);
-e=load('~/data/evomut/invasion/exp3invasionl_1/c0.9mexp1/res.mat'); d=max(e.mutators_dc_nb,[],2);
+e=load([dataroot '/exp3invasion_0/c0.9mexp1/res.mat']); a=400-min(e.mutators_dc_nb,[],2);
+e=load([dataroot '/exp3invasion_1/c0.9mexp1/res.mat']); b=max(e.mutators_dc_nb,[],2);
+e=load([dataroot '/exp3invasionl_0/c0.9mexp1/res.mat']); c=400-min(e.mutators_dc_nb,[],2);
+e=load([dataroot '/exp3invasionl_1/c0.9mexp1/res.mat']); d=max(e.mutators_dc_nb,[],2);
 
 % Neutral control
-e=load('~/data/evomut/invasion/exp3invasion_0_neutral/c0.9mexp1/res.mat'); adrift=400-min(e.mutators_dc_nb,[],2);
-e=load('~/data/evomut/invasion/exp3invasion_1_neutral/c0.9mexp1/res.mat'); bdrift=max(e.mutators_dc_nb,[],2);
-e=load('~/data/evomut/invasion/exp3invasionl_0_neutral/c0.9mexp1/res.mat'); cdrift=400-min(e.mutators_dc_nb,[],2);
-e=load('~/data/evomut/invasion/exp3invasionl_1_neutral/c0.9mexp1/res.mat'); ddrift=max(e.mutators_dc_nb,[],2);
+e=load([dataroot '/exp3invasion_0_neutral/c0.9mexp1/res.mat']); adrift=400-min(e.mutators_dc_nb,[],2);
+e=load([dataroot '/exp3invasion_1_neutral/c0.9mexp1/res.mat']); bdrift=max(e.mutators_dc_nb,[],2);
+e=load([dataroot '/exp3invasionl_0_neutral/c0.9mexp1/res.mat']); cdrift=400-min(e.mutators_dc_nb,[],2);
+e=load([dataroot '/exp3invasionl_1_neutral/c0.9mexp1/res.mat']); ddrift=max(e.mutators_dc_nb,[],2);
 alldrift=[adrift;bdrift;cdrift;ddrift];
 pc=prctile([adrift;bdrift;cdrift;ddrift],[5 95]);
 
@@ -228,16 +229,16 @@ close();
 %% Exp3 m=100
 
 % Data
-e=load('~/data/evomut/invasion/exp3invasion_0/c0.9mexp100/res.mat'); a=400-min(e.mutators_dc_nb,[],2);
-e=load('~/data/evomut/invasion/exp3invasion_1/c0.9mexp100/res.mat'); b=max(e.mutators_dc_nb,[],2);
-e=load('~/data/evomut/invasion/exp3invasionl_0/c0.9mexp100/res.mat'); c=400-min(e.mutators_dc_nb,[],2);
-e=load('~/data/evomut/invasion/exp3invasionl_1/c0.9mexp100/res.mat'); d=max(e.mutators_dc_nb,[],2);
+e=load([dataroot '/exp3invasion_0/c0.9mexp100/res.mat']); a=400-min(e.mutators_dc_nb,[],2);
+e=load([dataroot '/exp3invasion_1/c0.9mexp100/res.mat']); b=max(e.mutators_dc_nb,[],2);
+e=load([dataroot '/exp3invasionl_0/c0.9mexp100/res.mat']); c=400-min(e.mutators_dc_nb,[],2);
+e=load([dataroot '/exp3invasionl_1/c0.9mexp100/res.mat']); d=max(e.mutators_dc_nb,[],2);
 
 % Neutral control
-e=load('~/data/evomut/invasion/exp3invasion_0_neutral/c0.9mexp100/res.mat'); adrift=400-min(e.mutators_dc_nb,[],2);
-e=load('~/data/evomut/invasion/exp3invasion_1_neutral/c0.9mexp100/res.mat'); bdrift=max(e.mutators_dc_nb,[],2);
-e=load('~/data/evomut/invasion/exp3invasionl_0_neutral/c0.9mexp100/res.mat'); cdrift=400-min(e.mutators_dc_nb,[],2);
-e=load('~/data/evomut/invasion/exp3invasionl_1_neutral/c0.9mexp100/res.mat'); ddrift=max(e.mutators_dc_nb,[],2);
+e=load([dataroot '/exp3invasion_0_neutral/c0.9mexp100/res.mat']); adrift=400-min(e.mutators_dc_nb,[],2);
+e=load([dataroot '/exp3invasion_1_neutral/c0.9mexp100/res.mat']); bdrift=max(e.mutators_dc_nb,[],2);
+e=load([dataroot '/exp3invasionl_0_neutral/c0.9mexp100/res.mat']); cdrift=400-min(e.mutators_dc_nb,[],2);
+e=load([dataroot '/exp3invasionl_1_neutral/c0.9mexp100/res.mat']); ddrift=max(e.mutators_dc_nb,[],2);
 alldrift=[adrift;bdrift;cdrift;ddrift];
 pc=prctile([adrift;bdrift;cdrift;ddrift],[5 95]);
 

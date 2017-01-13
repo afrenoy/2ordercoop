@@ -1,3 +1,4 @@
+function [] = plotexp1relatedness(data)
 %PLOTEXP1RELATEDNESS produces figure 3 (relatedness for exp1)
 
 %% Global parameters
@@ -9,7 +10,7 @@ ini=-0.035;
 fin=1.03;
 
 %% Main plot
-plotrelatedness('~/data/evomut/exp1.mat')
+plotrelatedness(data)
 
 %% Draw parameter zones
 pa=patch(0.01+saveh/2+[ini 0.125 0.125 0.25 0.25 0.375 0.375 0.25 0.25 ini ini]*(1-saveh-savehr), 0.01+savev/2+[0.25 0.25 0.375 0.375 0.5 0.5 0.75 0.75 1 1 0.25]*(1-savev),colorb1,'LineStyle','none');

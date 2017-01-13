@@ -1,3 +1,4 @@
+function [] = plotexp1phenotypic(data,dataphenotypic)
 %PLOTEXP1PHENOTYPIC produces figure S3 (exp1 with phenotypic switch)
 
 %% Global parameters
@@ -8,7 +9,7 @@ saveh=0.07;
 savev=0.1;
 
 %% Main plot
-plotphenotypic('~/data/evomut/exp1','~/data/evomut/exp1_phenotypic');
+plotphenotypic(data,dataphenotypic);
 
 %% Draw parameter zones
 pa=patch(0.013+saveh/2+[ini 0.125 0.125 0.25 0.25 0.375 0.375 0.25 0.25 ini ini]*(1-saveh), 0.011+savev/2+[0.25 0.25 0.375 0.375 0.5 0.5 0.75 0.75 1 1 0.25]*(1-savev),colorb1,'LineStyle','none');

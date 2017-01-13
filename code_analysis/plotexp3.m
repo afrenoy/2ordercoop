@@ -1,3 +1,4 @@
+function [] = plotexp3(data)
 %PLOTEXP3 produces figure S5 (exp3, mutation rate between 0.001 and 0.5)
 
 %% Global parameters
@@ -8,7 +9,7 @@ saveh=0.07;
 savev=0.1;
 
 %% Main plot
-plotexp('~/data/evomut/exp3');
+plotexp(data);
 
 %% Draw parameter zones
 pa=patch(0.013+saveh/2+[ini 0.125 0.125 ini ini]*(1-saveh), 0.011+savev/2+[0.375 0.375 1 1 0.375]*(1-savev),[216.6667  230.0000  246.6667]/255,'LineStyle','none');
