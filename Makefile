@@ -1,5 +1,5 @@
 dir := ${CURDIR}
-matlabcmd := /Applications/MATLAB_R2014b.app/bin/matlab -nodesktop -nodisplay 
+matlabcmd := /Applications/MATLAB_R2016b.app/bin/matlab -nodesktop -nodisplay
 
 movies = movie1.mp4 movie1.webm
 figures = data1.pdf data2.pdf data3.pdf data1control.pdf data1relatedness.pdf data1liquid.pdf data1phenotypic.pdf data1sterile.pdf invasion1a.pdf invasion1b.pdf invasion2a.pdf invasion2b.pdf invasion3a.pdf invasion3b.pdf
@@ -36,6 +36,9 @@ data1phenotypic.pdf: graphicparamsv1.mat
 
 data1sterile.pdf: graphicparamsv1.mat
 	$(matlabcmd) -r "path(path,'$(dir)/code_analysis'); plotexp1sterile('$(dir)/data/exp1_sterile'); exit"
+
+data1async.pdf: graphicparamsv1.mat
+	$(matlabcmd) -r "path(path,'$(dir)/code_analysis'); plotexp1async('$(dir)/data/exp1_async'); exit"
 
 invasion1a.pdf invasion1b.pdf invasion2a.pdf invasion2b.pdf invasion3a.pdf invasion3b.pdf: graphicparamsv1.mat
 	$(matlabcmd) -r "path(path,'$(dir)/code_analysis'); analyzeinvasions('~/2ordercoop/data/invasion'); exit"

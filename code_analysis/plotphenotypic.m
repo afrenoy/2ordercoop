@@ -91,7 +91,7 @@ set(gcf,'PaperPosition',[0 0.1 8.7*scaling 8.7*scaling]);
 set(gcf,'PaperPositionMode', 'manual');
 
 %% Add a global legend on bottom
-hl=legend([h1,h2],{'H_{DC} when non heritable switch','H_{DC} when heritable switch'},'FontSize',fs2,'Orientation','horizontal','Box','off');
+hl=legend([h1,h2],{'H_{DC} when non heritable switch','H_{DC} when heritable mutation'},'FontSize',fs2,'Orientation','horizontal','Box','off');
 pl=get(hl,'Position');
 pl(1)=0.03;
 pl(2)=-0.02;
