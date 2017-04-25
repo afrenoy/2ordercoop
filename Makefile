@@ -2,7 +2,7 @@ dir := ${CURDIR}
 matlabcmd := /Applications/MATLAB_R2016b.app/bin/matlab -nodesktop -nodisplay
 
 movies = movie1.mp4 movie1.webm
-figures = data1.pdf data2.pdf data3.pdf data1control.pdf data1relatedness.pdf data1liquid.pdf data1phenotypic.pdf data1sterile.pdf invasion1a.pdf invasion1b.pdf invasion2a.pdf invasion2b.pdf invasion3a.pdf invasion3b.pdf
+figures = data1.pdf data2.pdf data3.pdf data1control.pdf data1relatedness.pdf data1liquid.pdf data1phenotypic.pdf data1sterile.pdf data1async.pdf invasion1a.pdf invasion1b.pdf invasion2a.pdf invasion2b.pdf invasion3a.pdf invasion3b.pdf
 
 all: $(movies) $(figures)
 
