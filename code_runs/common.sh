@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
 
-datadir=~/2ordercoop/data
-matlabcmd=launchmatlabcommandrnd.sh
+datadir=$(pwd)/../data
+#matlabcmd=launchmatlabcommandrnd.sh
+matlabcmd=launchmatlablocal.sh
