@@ -35,7 +35,7 @@ These scripts rely on a function `matlabcmd` (defined in `common.sh`) that runs 
 
 To locally rerun our simulations and produce a new version of any subdirectory in the `data` directory, one should:
 
-- Remove the content of this subdirectory (eg `rm -f data/exp1/*`)
+- Remove the content of this subdirectory (eg `rm -rf data/exp1/*`)
 - Edit `launchmatlablocal.sh` to match the Matlab installation
 - Run the script matching the data subdirectory (eg `cd code_runs && ./exp1.sh`)
 
