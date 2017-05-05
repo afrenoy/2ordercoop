@@ -23,13 +23,13 @@ for rep=first:last
     for i=1000:sim.ngen % we avoid the first 1000 generations (before 'equilibrium')
 
         %% Read
-        secretion=fread(f,[sim.sizex,sim.sizey]);
+        cooperation=fread(f,[sim.sizex,sim.sizey]);
         mutdc=fread(f,[sim.sizex,sim.sizey]);
         fread(f,[sim.sizex,sim.sizey]);
         fread(f,[sim.sizex,sim.sizey]);
         
         hascoopn=zeros(sim.sizex,sim.sizey);
-        [a,b]=find(secretion);
+        [a,b]=find(cooperation);
         
         % fill matrix hascoopn
         for index=1:length(a)
@@ -46,8 +46,8 @@ for rep=first:last
 
         % Count the proportion of second-order cooperators having pure
         % cooperators in the neighboorood, compare with non-cooperators
-        soc=find(secretion==0&mutdc==1);
-        sod=find(secretion==0&mutdc==0);
+        soc=find(cooperation==0&mutdc==1);
+        sod=find(cooperation==0&mutdc==0);
         
         p1=sum(hascoopn(soc))/numel(soc);
         p2=sum(hascoopn(sod))/numel(sod);

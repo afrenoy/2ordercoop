@@ -1,6 +1,5 @@
-function [secretion_nb,mutators_dc_nb,mutators_cd_nb] = s2invasion(seed,ngen,sizex,sizey,mutdc0,mutcd0,mutdc1,mutcd1,basefitness,cost,benefit,mexp,liquid,raretype,recordpath,record,graphics)
-%S2INVASION We test whether a rare individual of any type can invade other
-%types in S2 without mutations
+function [cooperation_nb,mutators_dc_nb,mutators_cd_nb] = s2invasion(seed,ngen,sizex,sizey,mutdc0,mutcd0,mutdc1,mutcd1,basefitness,cost,benefit,mexp,liquid,raretype,recordpath,record,graphics)
+%S2INVASION We test whether a rare individual of any type can invade other types in the S2 model without mutations (ecological simulations)
 
 %% Initialize the random seed
 if exist('seed','var')
@@ -23,14 +22,14 @@ sq = 1;
 
 %% Initialize the grid
 
-secretion=zeros(sizex,sizey);
+cooperation=zeros(sizex,sizey);
 fitness=zeros(sizex,sizey);
 mutdc=zeros(sizex,sizey);
 mutcd=zeros(sizex,sizey);
 
 for x = 1:sizex
   for y = 1:sizey
-    secretion(x,y)=0; % D at C/D locus
+    cooperation(x,y)=0; % D at C/D locus
     if (floor(rand(1)*2)==0) % Random choice at LCD/HCD locus
       mutcd(x,y)=mutcd0;
     else
@@ -45,7 +44,7 @@ yrare=floor(sizey/2);
 mutdc(xrare,yrare)=raretype*mutdc1+(1-raretype)*mutdc0; % The rare indiviual at the middle of the grid
 
 %% Initialize the recording
-secretion_nb=zeros(1,ngen);
+cooperation_nb=zeros(1,ngen);
 mutators_dc_nb=zeros(1,ngen);
 mutators_cd_nb=zeros(1,ngen);
 
@@ -64,7 +63,7 @@ for g=1:ngen
     hold on;
     for x=1:sizex
       for y=1:sizey
-        if (secretion(x,y)==1)
+        if (cooperation(x,y)==1)
           color='b';
         else
           color='w';
@@ -106,24 +105,24 @@ for g=1:ngen
   end
   
   %% Record the average properties
-  secretion_nb(g)=numel(find(secretion));
+  cooperation_nb(g)=numel(find(cooperation));
   mutators_dc_nb(g)=numel(find(mutdc==mutdc1));
   mutators_cd_nb(g)=numel(find(mutcd==mutcd1));
   
   %% Record everything
   if (record)
-    fwrite(fsave,(secretion==1));
+    fwrite(fsave,(cooperation==1));
     fwrite(fsave,(mutdc==mutdc1));
     fwrite(fsave,(mutcd==mutcd1));
   end
 
   %% Compute Fitness
-  nnsec=zeros(sizex,sizey);
+  nncoop=zeros(sizex,sizey);
   
   for x=1:sizex
     for y=1:sizey
       
-      %% Compute the number of neighbours that secrete
+      %% Compute the number of neighbours that cooperate
       for tx=-1:1
         nx=mod((x+tx-1),sizex)+1;
         if liquid % If option liquid is activated we randomly pick the neighboors
@@ -134,12 +133,12 @@ for g=1:ngen
           if liquid
               ny=randi(sizey);
           end
-          nnsec(x,y)=nnsec(x,y)+secretion(nx,ny);
+          nncoop(x,y)=nncoop(x,y)+cooperation(nx,ny);
         end
       end
       
       %% Deduce fitness
-      fitness(x,y) = power(basefitness + benefit * nnsec(x,y)/9 - cost * secretion(x,y), mexp);
+      fitness(x,y) = power(basefitness + benefit * nncoop(x,y)/9 - cost * cooperation(x,y), mexp);
       if (fitness(x,y)<0)
         fitness(x,y)=0;
       end
@@ -148,7 +147,7 @@ for g=1:ngen
   end
   
   %% Create a new grid to store individual properties
-  nsecretion=zeros(sizex,sizey);
+  ncooperation=zeros(sizex,sizey);
   nmutdc=zeros(sizex,sizey);
   nmutcd=zeros(sizex,sizey);
   
@@ -193,20 +192,20 @@ for g=1:ngen
       ny=mod((y+ty-1),sizey)+1;
       
       %% Copy the selected individual
-      nsecretion(x,y) = secretion(nx,ny);
+      ncooperation(x,y) = cooperation(nx,ny);
       nmutdc(x,y) = mutdc(nx,ny);
       nmutcd(x,y) = mutcd(nx,ny);
 
       %% Then perform mutations
       
       % Mutation on cooperation only
-      if (nsecretion(x,y)==0)
+      if (ncooperation(x,y)==0)
         if (r1(x,y)<nmutdc(x,y))
-          nsecretion(x,y)=1;
+          ncooperation(x,y)=1;
         end
-      elseif (nsecretion(x,y)==1)
+      elseif (ncooperation(x,y)==1)
         if (r1(x,y)<nmutcd(x,y))
-          nsecretion(x,y)=0;
+          ncooperation(x,y)=0;
         end
       else
         error('Erreur !');
@@ -217,7 +216,7 @@ for g=1:ngen
   end
   
   %% Update the variables
-  secretion=nsecretion;
+  cooperation=ncooperation;
   mutdc=nmutdc;
   mutcd=nmutcd;
 

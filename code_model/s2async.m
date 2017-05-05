@@ -1,22 +1,22 @@
-function [secretion_nb,mutators_dc_nb,mutators_cd_nb,neutral_nb] = s2async(seed,ngen,sizex,sizey,mutdc0,mutcd0,mutdc1,mutcd1,mut_mutcoop,mut_neutral,basefitness,cost,benefit,mexp,liquid,sterile,recordpath,record,graphics)
-%S2ASYNC Asynchronous simulations of the model
+function [cooperation_nb,mutators_dc_nb,mutators_cd_nb,neutral_nb] = s2async(seed,ngen,sizex,sizey,mutdc0,mutcd0,mutdc1,mutcd1,mut_mutcoop,mut_neutral,basefitness,cost,benefit,mexp,liquid,sterile,recordpath,record,graphics)
+%S2ASYNC Asynchronous simulations of the S2 model
 
 rng(seed) % Initialize the random seed
 
 %% Initialize the grid
 
-secretion=zeros(sizex,sizey);
+cooperation=zeros(sizex,sizey);
 fitness=zeros(sizex,sizey);
 mutdc=zeros(sizex,sizey);
 mutcd=zeros(sizex,sizey);
 neutral=zeros(sizex,sizey);
-nnsec=zeros(sizex,sizey);
+nncoop=zeros(sizex,sizey);
 
 for x = 1:sizex
   for y = 1:sizey
-    secretion(x,y)=floor(rand(1)*2);
+    cooperation(x,y)=floor(rand(1)*2);
     if sterile % No pure cooperators at the begining if they are sterile
-        secretion(x,y)=0;
+        cooperation(x,y)=0;
     end
     if (floor(rand(1)*2)==0)
       mutdc(x,y)=mutdc0;
@@ -33,7 +33,7 @@ for x = 1:sizex
 end
 
 %% Initialize the recording
-secretion_nb=zeros(1,ngen);
+cooperation_nb=zeros(1,ngen);
 mutators_dc_nb=zeros(1,ngen);
 mutators_cd_nb=zeros(1,ngen);
 neutral_nb=zeros(1,ngen);
@@ -45,21 +45,21 @@ end
 %% Initialize fitness
 for x=1:sizex
     for y=1:sizey
-      %% Compute the number of neighbours that secrete
+      %% Compute the number of neighbours that cooperate
       for tx=-1:1
         nx=mod((x+tx-1),sizex)+1;
         for ty=-1:1
           ny=mod((y+ty-1),sizey)+1;
-          nnsec(x,y)=nnsec(x,y)+secretion(nx,ny);
+          nncoop(x,y)=nncoop(x,y)+cooperation(nx,ny);
         end
       end
 
       %% Deduce fitness
-      fitness(x,y) = power(basefitness + benefit * nnsec(x,y)/9 - cost * secretion(x,y), mexp);
+      fitness(x,y) = power(basefitness + benefit * nncoop(x,y)/9 - cost * cooperation(x,y), mexp);
       if (fitness(x,y)<0)
         fitness(x,y)=0;
       end
-      if sterile && secretion(x,y)==1
+      if sterile && cooperation(x,y)==1
           fitness(x,y)=0;
       end
 
@@ -77,13 +77,13 @@ for cycle=1:ngen*sizex*sizey
   if mod(cycle,sizex*sizey)==0
       g=cycle/sizex/sizey;
   
-      secretion_nb(g)=numel(find(secretion));
+      cooperation_nb(g)=numel(find(cooperation));
       mutators_dc_nb(g)=numel(find(mutdc==mutdc1));
       mutators_cd_nb(g)=numel(find(mutcd==mutcd1));
       neutral_nb(g)=numel(find(neutral));
 
       if (record)
-        fwrite(fsave,(secretion==1));
+        fwrite(fsave,(cooperation==1));
         fwrite(fsave,(mutdc==mutdc1));
         fwrite(fsave,(mutcd==mutcd1));
         fwrite(fsave,(neutral==1));
@@ -136,13 +136,13 @@ for cycle=1:ngen*sizex*sizey
   ny=mod((y+ty-1),sizey)+1;
 
   %% Copy the selected individual
-  if sterile && secretion(nx,ny)==1
+  if sterile && cooperation(nx,ny)==1
       fprintf('Sterile individual reproducing !\n');
       pause(5);
       error('This should not happen!\n');
   end
-  old_value=secretion(x,y); % Is cooperation value increased/decreased
-  secretion(x,y) = secretion(nx,ny);
+  old_value=cooperation(x,y); % Is cooperation value increased/decreased
+  cooperation(x,y) = cooperation(nx,ny);
   mutdc(x,y) = mutdc(nx,ny);
   mutcd(x,y) = mutcd(nx,ny);
   neutral(x,y) = neutral(nx,ny);
@@ -150,13 +150,13 @@ for cycle=1:ngen*sizex*sizey
   %% Then perform mutations
 
   % Mutation on cooperation
-  if (secretion(x,y)==0)
+  if (cooperation(x,y)==0)
     if (rand()<mutdc(x,y))
-      secretion(x,y)=1;
+      cooperation(x,y)=1;
     end
-  elseif (secretion(x,y)==1)
+  elseif (cooperation(x,y)==1)
     if (rand()<mutcd(x,y))
-      secretion(x,y)=0;
+      cooperation(x,y)=0;
     end
   else
     error('Erreur !');
@@ -196,17 +196,17 @@ for cycle=1:ngen*sizex*sizey
   end
     
   %% Update the neighboors of the replaced individual
-  deltasec=secretion(x,y)-old_value;
+  deltacoop=cooperation(x,y)-old_value;
   for tx=-1:1
     nx=mod((x+tx-1),sizex)+1;
     for ty=-1:1
       ny=mod((y+ty-1),sizey)+1;
-      nnsec(nx,ny)=nnsec(nx,ny)+deltasec;
-      fitness(nx,ny) = power(basefitness + benefit * nnsec(nx,ny)/9 - cost * secretion(nx,ny), mexp);
+      nncoop(nx,ny)=nncoop(nx,ny)+deltacoop;
+      fitness(nx,ny) = power(basefitness + benefit * nncoop(nx,ny)/9 - cost * cooperation(nx,ny), mexp);
       if (fitness(nx,ny)<0)
         fitness(nx,ny)=0;
       end
-      if sterile && secretion(nx,ny)==1
+      if sterile && cooperation(nx,ny)==1
           fitness(nx,ny)=0;
       end
     end

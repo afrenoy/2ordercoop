@@ -3,7 +3,7 @@ function [nbcoop,nb2coop,nb2d,stdcoop,std2coop,std2d,nbctl,stdctl,nbcth,stdcth,m
 %controls
 
 a=load(mainfile);
-v1=mean(a.secretion_nb(:,1500:2000),2);
+v1=mean(a.cooperation_nb(:,1500:2000),2);
 nbcoop=mean(v1);
 stdcoop=std(v1);
 v2=mean(a.mutators_dc_nb(:,1500:2000),2);
@@ -22,12 +22,12 @@ if length(varargin)==2
     cthfile =varargin{2};
 
     b=load(ctlfile);
-    v3=mean(b.secretion_nb(:,1500:2000),2);
+    v3=mean(b.cooperation_nb(:,1500:2000),2);
     nbctl=mean(v3);
     stdctl=std(v3);
 
     c=load(cthfile);
-    v4=mean(c.secretion_nb(:,1500:2000),2);
+    v4=mean(c.cooperation_nb(:,1500:2000),2);
     nbcth=mean(v4);
     stdcth=std(v4);
 else
