@@ -1,6 +1,8 @@
 function [ ] = repls2phenotypic( basepath, nrep,ngen,sizex,sizey,def_mutdc,evo_mutdc,mut_mutcoop,mut_neutral,basefitness,cost,benefit,mexp,liquid,record )
 %REPLS2PHENOTYPIC Perform a set of S2-phenotypic experiments
 
+producegraphics=false;
+
 if ~exist(basepath,'dir')
   mkdir(basepath);
 end
@@ -37,20 +39,22 @@ save([psave '.mat'],'cooperation_nb','mutators_dc_nb','neutral_nb',...
                     'ngen','sizex','sizey','def_mutdc','evo_mutdc','mut_mutcoop','mut_neutral',...
                     'basefitness','cost','benefit','mexp','liquid');
 
-[h]=plotErrorBar([m_cooperation;m_mutators_dc;m_neutral],[se_cooperation;se_mutators_dc;se_neutral]);
-ylim([0 sizex*sizey]);
+if producegraphics
+    [h]=plotErrorBar([m_cooperation;m_mutators_dc;m_neutral],[se_cooperation;se_mutators_dc;se_neutral]);
+    ylim([0 sizex*sizey]);
 
-legend(h,{'Cooperators','High mut d->c','Neutral gene'},'FontSize',13,'Location','NorthWest');
+    legend(h,{'Cooperators','High mut d->c','Neutral gene'},'FontSize',13,'Location','NorthWest');
 
-set(gcf, 'PaperUnits', 'centimeters');
-set(gcf, 'PaperSize', [20 15]);
-set(gcf, 'PaperPositionMode', 'auto');
+    set(gcf, 'PaperUnits', 'centimeters');
+    set(gcf, 'PaperSize', [20 15]);
+    set(gcf, 'PaperPositionMode', 'auto');
 
-print('-depsc2',[psave '.eps']);
-print('-dpdf',[psave '.pdf']);
-hgsave([psave '.fig']);
+    print('-depsc2',[psave '.eps']);
+    print('-dpdf',[psave '.pdf']);
+    hgsave([psave '.fig']);
 
-close all;
+    close all;
+end
 
 end
 

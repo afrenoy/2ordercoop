@@ -1,7 +1,7 @@
 function [ ] = repls2async( basepath, nrep,ngen,sizex,sizey,def_mutdc,def_mutcd,evo_mutdc,evo_mutcd,mut_mutcoop,mut_neutral,basefitness,cost,benefit,mexp,liquid,sterile,record )
 %REPLS2ASYNC Perform a set of async experiments
 
-producegraphics=true;
+producegraphics=false;
 
 if ~exist(basepath,'dir')
   mkdir(basepath);
